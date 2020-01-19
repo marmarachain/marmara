@@ -86,7 +86,6 @@ OS : Ubuntu 16.04 LTS x86_64
 	sudo nano /etc/sysctl.conf 
 	vm.swappiness=10
 	sudo ufw allow 33824
-	sudo ufw allow 33825
 ```
 
 	
@@ -282,7 +281,6 @@ OS : Ubuntu 16.04 LTS x86_64
 	sudo nano /etc/sysctl.conf 
 	vm.swappiness=10
 	sudo ufw allow 33824
-	sudo ufw allow 33825
 ```
 
 	
