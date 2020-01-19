@@ -201,7 +201,26 @@ cd /komodo/src
 ./komodo-cli -ac_name=MCL walletaddress amount
 ```
 
+#### Cüzdanınızı yedekleyin
 
+ `wallet.dat` dosyası bütün varlıklarınızın bulunduğu güvenli bir dosyadır. yedeğini almayı unutmatınız!
+
+Linux'ta dosya burada bulunur: `~/.komodo/MCL/wallet.dat`
+
+Bu dosyayı yedeklemenin bir yolu, dosyanın bir kopyasını arşivlemektir.
+
+```bash
+# Dosyayı kopyalayın
+cp -av ~/.komodo/wallet.dat ~/wallet.dat
+
+# Dosyayı yeniden adlandır
+mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
+
+# Arşiv yapmak için
+tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
+
+# Son dosyayı güvenli bir yere taşıyıp saklayınız.
+```
 
 
 
@@ -398,6 +417,26 @@ cd /komodo/src
 ./komodo-cli -ac_name=MCL marmaraaddress
 ./komodo-cli -ac_name=MCL marmarainfo 0 0 0 0 <pubkey> //to get details
 ./komodo-cli -ac_name=MCL walletaddress amount
+```
+#### Backup your wallet
+
+We can not stress enough the importance of backing up your `wallet.dat` file.
+
+On Linux, the file is located here: `~/.komodo/MCL/wallet.dat`
+
+One method to backup this file is to archive a copy of the file.
+
+```bash
+# Copy the file
+cp -av ~/.komodo/wallet.dat ~/wallet.dat
+
+# Rename file
+mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
+
+# To make archive
+tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
+
+# Move the final file to a secure location
 ```
 
 ### Now, You are ready to participate in MCL credit loops.
