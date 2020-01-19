@@ -25,8 +25,6 @@ Min. 2 CPUs
 OS : Ubuntu 16.04 LTS x86_64
 ```
 
-#### Marmara v.1.0 kurulum adımları
-
 #### 1. kısım - Install the dependency packages 
 ```	sudo apt-get update
 	sudo apt-get upgrade -y
@@ -239,9 +237,8 @@ Min. 4 GB Free RAM
 Min. 2 CPUs
 OS : Ubuntu 16.04 LTS x86_64
 ```
-## Marmara v.1.0 setup and docs.
 
-## 1. step - Install the dependency packages 
+#### 1. step - Install the dependency packages 
 ```	sudo apt-get update
 	sudo apt-get upgrade -y
 	sudo apt install ufw
@@ -252,7 +249,7 @@ OS : Ubuntu 16.04 LTS x86_64
 	sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl clang libcurl4-gnutls-dev cmake clang -y
 	sudo apt-get install libsodium-dev
 ```
-## 2. step - Install nanomsg 
+#### 2. step - Install nanomsg 
 ```	
 2. kısım
 	Install nanomsg
@@ -276,7 +273,7 @@ OS : Ubuntu 16.04 LTS x86_64
 	sudo ldconfig
 	
 ```
-## 3. step - Change swap size on to 4GB (Ubuntu) 
+#### 3. step - Change swap size on to 4GB (Ubuntu) 
 	
 ```
 	sudo swapon --show
@@ -294,7 +291,7 @@ OS : Ubuntu 16.04 LTS x86_64
 	echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ```
 
-## 4 .step 
+#### 4 .step 
 ```	sudo sysctl vm.swappiness=10 
 	This setting will persist until the next reboot. We can set this value automatically at restart by adding the line to our /etc/sysctl.conf file:
 	sudo nano /etc/sysctl.conf 
@@ -303,7 +300,7 @@ OS : Ubuntu 16.04 LTS x86_64
 ```
 
 	
-## 5. step - Installing Komodo	
+#### 5. step - Installing Komodo	
 ```
 	cd 
 	git clone https://github.com/marmarachain/Marmara-v.1.0 komodo --branch marmara-specific --single-branch
@@ -314,11 +311,11 @@ OS : Ubuntu 16.04 LTS x86_64
 ```
 *** Note: The installation process takes 20 to 45 minutes.
 
-### After the setup, you are ready to use MCL blockchain
+#### After the setup, you are ready to use MCL blockchain
 ---
 Start at staking mode by getting wallet address and pubkey
 
-### Start the chain.
+#### Start the chain.
 
 Go to src folder.
 
@@ -326,29 +323,29 @@ Go to src folder.
 cd ~/komodo/src
 ```
   
-### Start the chain firstly.
+#### Start the chain firstly.
 
 ```
 ./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -pubkey="pubkey to enter here" &
 ```
 
-### then create a wallet address and write down this wallet address. 
+#### then create a wallet address and write down this wallet address. 
 
 ```
 ./komodo-cli -ac_name=MCL getnewaddress
 ```
 
-### Wallet address sample 
+#### Wallet address sample 
 ```
 RJajZNoEcCRD5wduqt1tna5DiLqiBC23bo
 ```
 
-### To confirm this wallet address and then create the pubkey, Text this wallet address in quotation marks , “Enter your wallet address here” secion.
+#### To confirm this wallet address and then create the pubkey, Text this wallet address in quotation marks , “Enter your wallet address here” secion.
 ```
 ./komodo-cli -ac_name=MCL validateaddress "Enter your wallet address here"
 ```
 
-### you will get the output like below. and then, write down also the pubkey that written here.
+#### you will get the output like below. and then, write down also the pubkey that written here.
 ```
 {
 	": true,
@@ -366,28 +363,28 @@ RJajZNoEcCRD5wduqt1tna5DiLqiBC23bo
 
 this is the your pubkey : `03a3f641c4679c579b20c597435e8a32d50091bfc56e28303f5eb26fb1cb1eee72`
 
-### Stop the  chain.
+#### Stop the  chain.
 ```
 ./komodo-cli -ac_name=MCL stop
 ```
 
-### next step is the runing to chain in mining mode by using your own pubkey.
+#### next step is the runing to chain in mining mode by using your own pubkey.
 
 You can run it by using following command. text your pubkey to the area "-pubkey="pubkey to enter here" and then, copy to all command and then, when it is at "cd komodo/src" , paste it and click "enter"
 ```
 ./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=-1 -pubkey="pubkey to enter here" &
 ```
 
-### at the moment, our server starts to running as mining mode . 
+#### at the moment, our server starts to running as mining mode . 
 
-### you can reach your mining document by using codes below.
+#### you can reach your mining document by using codes below.
 
 ```
 ./komodo-cli -ac_name=MCL getinfo
 ./komodo-cli -ac_name=MCL marmarainfo 0 0 0 0 pubkey (to get details)
 ```
 
-### Options to operate the Marmara Chain in different modes are as follows;
+#### Options to operate the Marmara Chain in different modes are as follows;
 
 ```
 -genproclimit=-1 Şayet -1 (If you make -1, all processor (cpu) use.)
@@ -396,7 +393,7 @@ You can run it by using following command. text your pubkey to the area "-pubkey
 
 ```
 
-### Not : Note: these are what to do in cases of server shutdown,  crashed, reset
+#### Not : Note: these are what to do in cases of server shutdown,  crashed, reset
 
 ```
 cd /komodo/src
@@ -404,7 +401,7 @@ cd /komodo/src
 ./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=-1 -pubkey="pubkey to enter here" &
 ```
 ---
-## MCL params.
+#### MCL params.
 ```	
 ./komodo-cli -ac_name=MCL marmaracreditloop txid
 ./komodo-cli -ac_name=MCL marmarainfo firstheight lastheight minamount maxamount [currency issuerpk]
@@ -418,7 +415,7 @@ cd /komodo/src
 ./komodo-cli -ac_name=MCL marmarainfo 0 0 0 0 <pubkey> //to get details
 ./komodo-cli -ac_name=MCL walletaddress amount
 ```
-## Backup your wallet
+#### Backup your wallet
 
 We can not stress enough the importance of backing up your `wallet.dat` file.
 
@@ -439,7 +436,7 @@ tar -czvf ~/2019-05-17-wallet_backup.dat.tgz ~/2019-05-17-wallet_backup.dat
 # Move the final file to a secure location
 ```
 
-### Now, You are ready to participate in MCL credit loops.
+#### Now, You are ready to participate in MCL credit loops.
 
 You can reach Marmara Credit Loop guide here.
 
