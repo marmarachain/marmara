@@ -312,7 +312,7 @@ cd ~/komodo/src
 ### Start the chain firstly.
 
 ```
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -pubkey="pubkeyburayagirilecek" &
+./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -pubkey="pubkey to enter here" &
 ```
 
 ### then create a wallet address and write down this wallet address. 
@@ -326,9 +326,9 @@ cd ~/komodo/src
 RJajZNoEcCRD5wduqt1tna5DiLqiBC23bo
 ```
 
-### To confirm this wallet address and then create the pubkey, Text this wallet address in quotation marks , “buraya wallet adresinizi giriniz” secion.
+### To confirm this wallet address and then create the pubkey, Text this wallet address in quotation marks , “Enter your wallet address here” secion.
 ```
-./komodo-cli -ac_name=MCL validateaddress "buraya wallet adresinizi giriniz"
+./komodo-cli -ac_name=MCL validateaddress "Enter your wallet address here"
 ```
 
 ### you will get the output like below. and then, write down also the pubkey that written here.
@@ -356,9 +356,9 @@ this is the your pubkey : `03a3f641c4679c579b20c597435e8a32d50091bfc56e28303f5eb
 
 ### next step is the runing to chain in mining mode by using your own pubkey.
 
-You can run it by using following command. text your pubkey to the area "-pubkey=pubkeyburayagirilecek" and then, copy to all command and then, when it is at "cd komodo/src" , paste it and click "enter"
+You can run it by using following command. text your pubkey to the area "-pubkey="pubkey to enter here" and then, copy to all command and then, when it is at "cd komodo/src" , paste it and click "enter"
 ```
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=-1 -pubkey="pubkeyburayagirilecek" &
+./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=-1 -pubkey="pubkey to enter here" &
 ```
 
 ### at the moment, our server starts to running as mining mode . 
@@ -384,7 +384,7 @@ You can run it by using following command. text your pubkey to the area "-pubkey
 ```
 cd /komodo/src
 ./komodo-cli -ac_name=MCL stop
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=-1 -pubkey="pubkeyburayagirilecek" &
+./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=-1 -pubkey="pubkey to enter here" &
 ```
 ---
 ## MCL params.
