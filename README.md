@@ -211,7 +211,7 @@ Bu dosyayı yedeklemenin bir yolu, dosyanın bir kopyasını arşivlemektir.
 
 ```bash
 # Dosyayı kopyalayın
-cp -av ~/.komodo/wallet.dat ~/wallet.dat
+cp -av ~/.komodo/MCL/wallet.dat ~/wallet.dat
 
 # Dosyayı yeniden adlandır
 mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
@@ -428,7 +428,7 @@ One method to backup this file is to archive a copy of the file.
 
 ```bash
 # Copy the file
-cp -av ~/.komodo/wallet.dat ~/wallet.dat
+cp -av ~/.komodo/MCL/wallet.dat ~/wallet.dat
 
 # Rename file
 mv ~/wallet.dat ~/2019-05-17-wallet_backup.dat
