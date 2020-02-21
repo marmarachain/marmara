@@ -98,7 +98,7 @@ OS : Ubuntu 16.04 LTS x86_64
 
 ```
 
-### Bu sıralamadan sonra her şey normal çalışır vaziyette olacaktır. Marmara Chain sorunsuz vaziyette kullanabilirsiniz.
+### Bu sıralamadan sonra her şey normal çalışır vaziyette olacaktır. Chain'i sorunsuz vaziyette kullanabilirsiniz.
 ---
 Wallet adresi ve Pubkey alıp - pubkey ile Staking mod da başlatma.
 
