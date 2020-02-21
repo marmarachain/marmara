@@ -26,7 +26,8 @@ OS : Ubuntu 16.04 LTS x86_64
 ```
 
 #### 1. kısım - Install the dependency packages 
-```	sudo apt-get update
+```	
+	sudo apt-get update
 	sudo apt-get upgrade -y
 	sudo apt install ufw
 	sudo ufw --version
