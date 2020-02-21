@@ -243,7 +243,7 @@ OS : Ubuntu 16.04 LTS x86_64
 	sudo apt-get upgrade -y
 	sudo apt install ufw
 	sudo ufw --version
-	sudo ufw enable
+	echo y | sudo ufw enable
 	sudo apt-get install ssh
 	sudo ufw allow "OpenSSH"
 	sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python zlib1g-dev wget bsdmainutils automake libboost-all-dev libssl-dev libprotobuf-dev protobuf-compiler libgtest-dev libqt4-dev libqrencode-dev libdb++-dev ntp ntpdate software-properties-common curl clang libcurl4-gnutls-dev cmake clang -y
