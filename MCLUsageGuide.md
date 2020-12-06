@@ -217,7 +217,7 @@ This command in turn returns a JSON object with the result of the operation and 
 ```
 Now, in order to confirm this transaction, copy the hex returned through the JSON object and validate it through the ```sendrawtrasaction``` command given below.
 ```  
-./komodo-cli -ac_name=MCL sendrawtranscation 0400008085202f89020039b219200ae4b5c83d77bffce7a8af054d6fb..........e9181f6aac3e1beb1e260e9a1f49ed24e6ac00000000edeb04000000000000000000000000
+./komodo-cli -ac_name=MCL sendrawtransaction 0400008085202f89020039b219200ae4b5c83d77bffce7a8af054d6fb..........e9181f6aac3e1beb1e260e9a1f49ed24e6ac00000000edeb04000000000000000000000000
 ```
 If the avove command gets successfully executed in the blockchain, it gives out a transaction id in response. One may check if this transaction is verified by searching the respective id in the [Marmara Explorer site](http://explorer.marmara.io).
 To see the activated coins, use ```marmarainfo``` command provided earlier and search for the value across the ```"myActivatedAmount"``` parameter. Note that the raw transactions are collected in the mempool and a few blocks may be needed to found to see the transaction recorded on the block.
@@ -257,7 +257,7 @@ The Credit loops can be made using only activated coins.
 **Dispute Expiry:** It is grace period for solving non-redemption problem in credit loops in protocol 2. An issuer may have this time as blocks when creating a credit under protocol 2 without or insufficient collateralization. Before this period expires, an escrow should do all actions according to aggrement with the issuer to solve non-redemption. Otherwise, the escrow is penalized in the system.
 
 ###Important Commands for Making Credit Loops
-- ```marmararecieve```
+- ```marmarareceive```
 
 This command is used to get a credit from an issuer or an endorser. When asking a credit from an issuer, i.e. the first node, it has a unique use. In other nodes, it is the same.
 
