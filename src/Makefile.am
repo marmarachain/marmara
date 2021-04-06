@@ -120,7 +120,7 @@ noinst_PROGRAMS =
 TESTS =
 
 #if BUILD_BITCOIND
-  bin_PROGRAMS += komodod
+  bin_PROGRAMS += marmarad
 #endif
 
 if BUILD_BITCOIN_UTILS
@@ -553,16 +553,16 @@ nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-komodod_SOURCES = bitcoind.cpp
-komodod_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-komodod_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-komodod_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+marmarad_SOURCES = bitcoind.cpp
+marmarad_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+marmarad_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+marmarad_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-komodod_SOURCES += bitcoind-res.rc
+marmarad_SOURCES += bitcoind-res.rc
 endif
 
-komodod_LDADD = \
+marmarad_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -580,10 +580,10 @@ komodod_LDADD = \
   $(LIBCRYPTOCONDITIONS)
 
 if ENABLE_WALLET
-komodod_LDADD += $(LIBBITCOIN_WALLET)
+marmarad_LDADD += $(LIBBITCOIN_WALLET)
 endif
 
-komodod_LDADD += \
+marmarad_LDADD += \
   $(BOOST_LIBS) \
   $(BDB_LIBS) \
   $(SSL_LIBS) \
@@ -598,22 +598,22 @@ komodod_LDADD += \
   $(LIBZCASH_LIBS)
 
 if TARGET_DARWIN
-komodod_LDADD += libcc.dylib $(LIBSECP256K1)
+marmarad_LDADD += libcc.dylib $(LIBSECP256K1)
 endif
 if TARGET_WINDOWS
-komodod_LDADD += libcc.dll $(LIBSECP256K1)
+marmarad_LDADD += libcc.dll $(LIBSECP256K1)
 endif
 if TARGET_LINUX
-komodod_LDADD += libcc.so $(LIBSECP256K1)
+marmarad_LDADD += libcc.so $(LIBSECP256K1)
 endif
 
 if ENABLE_PROTON
-komodod_LDADD += $(LIBBITCOIN_PROTON) $(PROTON_LIBS)
+marmarad_LDADD += $(LIBBITCOIN_PROTON) $(PROTON_LIBS)
 endif
 
 # [+] Decker: use static linking for libstdc++.6.dylib, libgomp.1.dylib, libgcc_s.1.dylib
 if TARGET_DARWIN
-komodod_LDFLAGS += -static-libgcc
+marmarad_LDFLAGS += -static-libgcc
 endif
 
 # bitcoin-cli binary #
