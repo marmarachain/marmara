@@ -14,7 +14,7 @@ endif
 
 
 BITCOIND_BIN=$(top_builddir)/src/marmarad$(EXEEXT)
-BITCOIN_CLI_BIN=$(top_builddir)/src/marmara$(EXEEXT)
+BITCOIN_CLI_BIN=$(top_builddir)/src/marmara-cli$(EXEEXT)
 #WALLET_UTILITY_BIN=$(top_builddir)/src/wallet-utility$(EXEEXT)
 BITCOIN_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
 

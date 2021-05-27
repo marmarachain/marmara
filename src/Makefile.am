@@ -124,7 +124,7 @@ TESTS =
 #endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += marmara komodo-tx
+  bin_PROGRAMS += marmara-cli komodo-tx
 endif
 if ENABLE_WALLET
   bin_PROGRAMS += wallet-utility
@@ -617,12 +617,12 @@ marmarad_LDFLAGS += -static-libgcc
 endif
 
 # bitcoin-cli binary #
-marmara_SOURCES = bitcoin-cli.cpp
-marmara_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-marmara_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-marmara_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+marmara_cli_SOURCES = bitcoin-cli.cpp
+marmara_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+marmara_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+marmara_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 if TARGET_DARWIN
-marmara_LDFLAGS += -static-libgcc
+marmara_cli_LDFLAGS += -static-libgcc
 endif
 
 # wallet-utility binary #
@@ -634,10 +634,10 @@ wallet_utility_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 endif
 
 if TARGET_WINDOWS
-marmara_SOURCES += bitcoin-cli-res.rc
+marmara_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
-marmara_LDADD = \
+marmara_cli_LDADD = \
 	$(LIBBITCOIN_CLI) \
 	$(LIBUNIVALUE) \
 	$(LIBBITCOIN_UTIL) \
