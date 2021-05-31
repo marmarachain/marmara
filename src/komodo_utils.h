@@ -1773,7 +1773,7 @@ void komodo_args(char *argv0)
     KOMODO_STOPAT = GetArg("-stopat",0);
     MAX_REORG_LENGTH = GetArg("-maxreorg",MAX_REORG_LENGTH);
     WITNESS_CACHE_SIZE = MAX_REORG_LENGTH+10;
-    ASSETCHAINS_CC = GetArg("-ac_cc",2);
+    ASSETCHAINS_CC = 2; //GetArg("-ac_cc",2);
     KOMODO_CCACTIVATE = GetArg("-ac_ccactivate",0);
     ASSETCHAINS_BLOCKTIME = GetArg("-ac_blocktime",60);
     ASSETCHAINS_PUBLIC = GetArg("-ac_public",0);
@@ -1900,7 +1900,7 @@ void komodo_args(char *argv0)
         ASSETCHAINS_SCRIPTPUB = GetArg("-ac_script","");
         ASSETCHAINS_BEAMPORT = GetArg("-ac_beam",0);
         ASSETCHAINS_CODAPORT = GetArg("-ac_coda",0);
-        ASSETCHAINS_MARMARA = GetArg("-ac_marmara",1);
+        ASSETCHAINS_MARMARA = true; //GetArg("-ac_marmara",1);
         ASSETCHAINS_CBOPRET = GetArg("-ac_cbopret",0);
         ASSETCHAINS_CBMATURITY = GetArg("-ac_cbmaturity",0);
         ASSETCHAINS_ADAPTIVEPOW = GetArg("-ac_adaptivepow",0);
@@ -2072,8 +2072,7 @@ void komodo_args(char *argv0)
         }
         
 
-        if ( (ASSETCHAINS_STAKED= GetArg("-ac_staked",75)) > 100 )
-            ASSETCHAINS_STAKED = 100;
+        ASSETCHAINS_STAKED = 75;
 
         // for now, we only support 50% PoS due to other parts of the algorithm needing adjustment for
         // other values
