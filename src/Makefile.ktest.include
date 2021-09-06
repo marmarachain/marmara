@@ -12,8 +12,8 @@ komodo_test_SOURCES = \
 	test-komodo/test_eval_notarisation.cpp \
 	test-komodo/test_parse_notarisation.cpp
 
-komodo_test_CPPFLAGS = $(komodod_CPPFLAGS)
+komodo_test_CPPFLAGS = $(marmarad_CPPFLAGS)
 
-komodo_test_LDADD = -lgtest $(komodod_LDADD)
+komodo_test_LDADD = -lgtest $(marmarad_LDADD)
 
 komodo_test_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) -static
