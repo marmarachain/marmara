@@ -30,7 +30,8 @@ static std::map<std::string,bool> nspv_remote_commands =  {
 {"gatewayswithdrawsign", true},{"gatewaysmarkdone", true},{"gatewayspendingdeposits", true},{"gatewayspendingsignwithdraws", true},{"gatewayssignedwithdraws", true},
 {"gatewaysinfo", false},{"gatewayslist", false},{"faucetfund", true},{"faucetget", true},{"pegscreate", true},{"pegsfund", true},{"pegsget", true},{"pegsclose", true},
 {"pegsclose", true},{"pegsredeem", true},{"pegsexchange", true},{"pegsliquidate", true},{"pegsaccounthistory", true},{"pegsaccountinfo", true},{"pegsworstaccounts", true},
-{"pegsinfo", true},{ "marmaralock", false },{ "marmaraissue", false },{ "marmaratransfer", true },{ "marmarareceive", true },{ "marmarainfo", true },{ "marmaracreditloop", true }
+{"pegsinfo", true},{ "marmaralock", true },{ "marmaraissue", true },{ "marmaratransfer", true },{ "marmarareceive", true },{ "marmarainfo", true },{ "marmaracreditloop", true },
+{"marmaraholderloops", true}, {"marmarareceivelist", true}, {"marmaraunlock", true}    
 };
 
 struct NSPV_ntzargs
