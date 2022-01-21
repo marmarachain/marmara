@@ -10,7 +10,7 @@ Marmara Kredi Döngüleri yazılımı kaynağından indirilip yüklendiyse bu du
 Marmara zincirini asağıdaki parametrelerle başlatınız:
 
 ```
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 ```
 Bağlanıp senkronize olana kadar bekleyiniz. Aşağıdaki komutu kullanarak düğümünüzün zincire bağlanıp bağlanmadığını kontrol edebilirsiniz:
 
@@ -37,7 +37,7 @@ tar -xvf MCL-bootstrap.tar.gz -C .komodo/MCL
 ```
 Aşağıdaki komut ile Marmara Zinciri tekrardan başlatılır:
 ```
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addnode=46.4.238.65 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
 ```
 
 ## Pubkey Oluşturma ve Marmara Zincirini Pubkey ile Başlatma
@@ -70,7 +70,7 @@ Bunun için öncelikle zincir aşağıdaki komut ile durdurulur:
 ```
 Sonrasında başlatma parametrelerinin sonuna aşağıdaki örnekte gösterildiği üzere kullanıcının MCL pubkey'i eklenerek Marmara blokzinciri tekrardan başlatılır:
 ```	
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=37.148.210.158 -addnode=37.148.212.36 -addnode=46.4.238.65 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=1 -pubkey=DO_NOT_USE_THIS_ADDRESS019n79b0921a1be6d3ca6f9e8a050mar17eb845fe46b9d756 &
+./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=1 -pubkey=DO_NOT_USE_THIS_ADDRESS019n79b0921a1be6d3ca6f9e8a050mar17eb845fe46b9d756 &
 ```
 > Yukarıdaki komut içerisinde yer alan ```-genproclimit``` madencilikte kullanılacak olan thread sayısını belirlemektedir.
 
