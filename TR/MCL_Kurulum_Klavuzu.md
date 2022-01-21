@@ -7,9 +7,64 @@ Marmara Kredi Döngüleri Zeki kontrak blokzincirini kurmanın iki yolu bulunmak
 
 Marmara Kredi Döngüleri blokzincirinin önceden derlenmiş halini indirip, zip halinde olan dosyayı açıp kurulumu hızlıca tamamlayabilirisiniz.
 
-Bunun için aşağıdaki linkten ilgili dosyalara erişim sağlayabilirsiniz.
+Bunun için burada yer alan [linkten](https://github.com/marmarachain/marmara/releases) ilgili dosyalara erişim sağlayabilirsiniz.
 
-**__TO-DO: Add a link to simple installations section for pre-compiled executables of MCL__**
+### Linux İşletim Sistemi
+
+Sistemin güncel olduğundan emin olunur:
+```	
+sudo apt-get update
+sudo apt-get upgrade -y
+```
+Bağımlılık paketlerini asağıdaki komut ile indirin:
+```
+sudo apt-get install libgomp1
+```
+Burada verilen [linkten](https://github.com/marmarachain/marmara/releases) Marmara Linux binary dosyasını indirin. Dosyayı dilediğiniz bir alana taşıdıktan sonra aşağıda verilen komutları ilgili dizin yolunda termina üzerinden gerçekleştirin:
+```
+sudo apt install unzip
+unzip MCL-linux.zip
+sudo chmod +x komodod komodo-cli fetch-params.sh
+./fetch-params.sh
+```
+Terminalden komodod ve komodo-cli dosyalarının bulunduğu dizine gidip Marmara Zincirini başlatın:
+```
+./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000
+```
+Zinciri durdurmak için ilgili dizinde aşağıdaki komutu terminale yazınız:
+```
+./komodo-cli -ac_name=MCL stop
+```
+
+### Windows
+
+[Releases](https://github.com/marmarachain/marmara/releases) sayfasında Assets altında yer alan MCL zip dosyasını Windows bilgisayarınıza indirip, zip dosyayı çıkarıp, içinde yer alan komodod.exe ve komodo-cli.exe ve diğer **bütün** dosyaları masaüstünde veya dilediğiniz yerde ```MCL``` isminde klasör oluşturup içine taşıyınız. 
+
+Burada yer alan kurulum yönergelerinde masaüstünde oluşturulan MCL dizini kullanılmaktadır.
+
+Öncelikle ZcashParams dosyalarını indirmek için ```fetch-params.bat``` isimli dosyaya çift tıklayarak çalıştırınız. 
+
+Bu işlem başarı ile tamamlanırsa, ```MCL_start.bat``` dosyasına çift tıklayarak zinciri başlatınız.
+
+Eğer ```fetch-params.bat``` dosyasını çalıştırma işlemi başarılı değilse, bu durumda aşağıda yer alan adımları takip ediniz:
+
+İlk adım olarak komut terminal ekranı açıp ```ZcashParams``` klasörünü aşağıdaki komut ile oluşturunuz:
+```
+mkdir “%HOMEPATH%\AppData\Roaming\ZcashParams”
+```
+Aşağıda yer alan dosyaları ilgili linklerden inidirip, ```MCL``` isminde önceden masaüstünde oluşturduğunuz klasöre taşıyınız.
+
+- [sprout-proving.key](https://z.cash/downloads/sprout-proving.key)
+
+- [sprout-verifying.key](https://z.cash/downloads/sprout-verifying.key)
+
+- [sapling-spend.params](https://z.cash/downloads/sapling-spend.params)
+
+- [sapling-output.params](https://z.cash/downloads/sapling-output.params)
+
+- [sprout-groth16.params](https://z.cash/downloads/sprout-groth16.params)
+
+```MCL_start```.bat dosyasına çift tıklayarak zinciri başlatınız.
 
 ## Marmara Kredi Döngüleri Blokzincirinin Kaynak Kodundan Kurulumu
 
