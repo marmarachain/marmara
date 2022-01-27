@@ -22,18 +22,6 @@
 #include "notarisationdb.h"
 #include "rpc/server.h"
 
-static std::map<std::string,bool> nspv_remote_commands =  {
-    
-{"channelsopen", true},{"channelspayment", true},{"channelsclose", true},{"channelsrefund", true},
-{"channelslist", true},{"channelsinfo", true},{"oraclescreate", true},{"oraclesfund", true},{"oraclesregister", true},{"oraclessubscribe", true}, 
-{"oraclesdata", true},{"oraclesinfo", false},{"oracleslist", false},{"gatewaysbind", true},{"gatewaysdeposit", true},{"gatewayswithdraw", true},
-{"gatewayswithdrawsign", true},{"gatewaysmarkdone", true},{"gatewayspendingdeposits", true},{"gatewayspendingsignwithdraws", true},{"gatewayssignedwithdraws", true},
-{"gatewaysinfo", false},{"gatewayslist", false},{"faucetfund", true},{"faucetget", true},{"pegscreate", true},{"pegsfund", true},{"pegsget", true},{"pegsclose", true},
-{"pegsclose", true},{"pegsredeem", true},{"pegsexchange", true},{"pegsliquidate", true},{"pegsaccounthistory", true},{"pegsaccountinfo", true},{"pegsworstaccounts", true},
-{"pegsinfo", true},{ "marmaralock", true },{ "marmaraissue", true },{ "marmaratransfer", true },{ "marmarareceive", true },{ "marmarainfo", true },{ "marmaracreditloop", true },
-{"marmaraholderloops", true}, {"marmarareceivelist", true}, {"marmaraunlock", true}    
-};
-
 struct NSPV_ntzargs
 {
     uint256 txid,desttxid,blockhash;
@@ -344,7 +332,6 @@ int32_t NSPV_getccmoduleutxos(struct NSPV_utxosresp *ptr, char *coinaddr, int64_
     //}
    
     // select all appropriate utxos:
-    std::cerr << __func__ << " " << "searching addr=" << coinaddr << std::endl;
     for (std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> >::const_iterator it = unspentOutputs.begin(); it != unspentOutputs.end(); it++)
     {
         if (myIsutxo_spentinmempool(ignoretxid, ignorevin, it->first.txhash, (int32_t)it->first.index) == 0)
@@ -360,8 +347,6 @@ int32_t NSPV_getccmoduleutxos(struct NSPV_utxosresp *ptr, char *coinaddr, int64_
                 // if a checker is set for evalcode use it otherwise use the default checker:
                 if (baseChecker && baseChecker->checkCC(it->first.txhash, tx.vout, nvout, evalcode, funcids, filtertxid) || defaultCCChecker.checkCC(it->first.txhash, tx.vout, nvout, evalcode, funcids, filtertxid))
                 {
-                    std::cerr << __func__ << " " << "filtered utxo with amount=" << tx.vout[nvout].nValue << std::endl;
-
                     struct CC_utxo utxo;
                     utxo.txid = it->first.txhash;
                     utxo.vout = (int32_t)it->first.index;
@@ -657,62 +642,6 @@ int32_t NSPV_mempooltxids(struct NSPV_mempoolresp *ptr,char *coinaddr,uint8_t is
         free(ptr->txids);
     memset(ptr,0,sizeof(*ptr));
     return(0);
-}
-
-int32_t NSPV_remoterpc(struct NSPV_remoterpcresp *ptr,char *json,int n)
-{
-    std::vector<uint256> txids; int32_t i,len = 0; UniValue result; std::string response;
-    UniValue request(UniValue::VOBJ),rpc_result(UniValue::VOBJ); JSONRequest jreq; CPubKey mypk;
-
-    try
-    {
-        request.read(json,n);
-        jreq.parse(request);
-        strcpy(ptr->method,jreq.strMethod.c_str());
-        len+=sizeof(ptr->method);
-        std::map<std::string, bool>::iterator it = nspv_remote_commands.find(jreq.strMethod);
-        if (it==nspv_remote_commands.end())
-            throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not supported!");
-        const CRPCCommand *cmd=tableRPC[jreq.strMethod];
-        if (!cmd)
-            throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found");
-        if (it->second)
-        {
-            if (!request.exists("mypk"))
-                throw JSONRPCError(RPC_PARSE_ERROR, "No pubkey supplied in remote rpc request, necessary for this type of rpc");
-            std::string str=request["mypk"].get_str();
-            mypk=pubkey2pk(ParseHex(str));
-            if (!mypk.IsValid())
-                throw JSONRPCError(RPC_PARSE_ERROR, "Not valid pubkey passed in remote rpc call");
-        }
-        if ((result = cmd->actor(jreq.params,false,mypk)).isObject() || result.isArray())
-        {
-            rpc_result = JSONRPCReplyObj(result, NullUniValue, jreq.id);
-            response=rpc_result.write();
-            memcpy(ptr->json,response.c_str(),response.size());
-            len+=response.size();
-            return (len);
-        }
-        else throw JSONRPCError(RPC_MISC_ERROR, "Error in executing RPC on remote node");        
-    }
-    catch (const UniValue& objError)
-    {
-        rpc_result = JSONRPCReplyObj(NullUniValue, objError, jreq.id);
-        response=rpc_result.write();
-    }
-    catch (const runtime_error& e)
-    {
-        rpc_result = JSONRPCReplyObj(NullUniValue,JSONRPCError(RPC_PARSE_ERROR, e.what()), jreq.id);
-        response=rpc_result.write();
-    }
-    catch (const std::exception& e)
-    {
-        rpc_result = JSONRPCReplyObj(NullUniValue,JSONRPCError(RPC_PARSE_ERROR, e.what()), jreq.id);
-        response=rpc_result.write();
-    }
-    memcpy(ptr->json,response.c_str(),response.size());
-    len+=response.size();
-    return (len);
 }
 
 uint8_t *NSPV_getrawtx(CTransaction &tx,uint256 &hashBlock,int32_t *txlenp,uint256 txid)
@@ -1148,25 +1077,6 @@ void komodo_nSPVreq(CNode *pfrom,std::vector<uint8_t> request) // received a req
                         NSPV_broadcast_purge(&B);
                     }
                 }
-            }
-        }
-        else if ( request[0] == NSPV_REMOTERPC )
-        {
-            if ( timestamp > pfrom->prevtimes[ind] )
-            {
-                struct NSPV_remoterpcresp R; int32_t p;
-                p = 1;
-                p+=iguana_rwnum(0,&request[p],sizeof(slen),&slen);
-                memset(&R,0,sizeof(R));
-                if (request.size() == p+slen && (slen=NSPV_remoterpc(&R,(char *)&request[p],slen))>0 )
-                {
-                    response.resize(1 + slen);
-                    response[0] = NSPV_REMOTERPCRESP;
-                    NSPV_rwremoterpcresp(1,&response[1],&R,slen);
-                    pfrom->PushMessage("nSPV",response);
-                    pfrom->prevtimes[ind] = timestamp;
-                    NSPV_remoterpc_purge(&R);
-                }                
             }
         }
         else if (request[0] == NSPV_CCMODULEUTXOS)  // get cc module utxos from coinaddr for the requested amount, evalcode, funcid list and txid
