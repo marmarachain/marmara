@@ -23,7 +23,7 @@ This is the official Marmara Credit Loops sourcecode repository based on https:/
 - Marmara Credit Loops Blockexplorer: [Marmara Explorer](https://explorer.marmara.io/)
 - Marmara Credit Loops Discord: [MCL Discord](https://discord.com/invite/DZDPAd)
 - Mail: [marmarachain@gmail.com](mailto:marmarachain@gmail.com)
-- Whitepaper: [Marmara Whitepaper](http://marmara.io/IMSS2019_WhitePaper_English.pdf)
+- Whitepaper: [Marmara Whitepaper](http://marmara.io/docs/IMSS2019_WhitePaper_English.pdf)
 
 
 ## Tech Specification
