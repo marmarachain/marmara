@@ -3885,6 +3885,7 @@ UniValue MarmaraSettlement(int64_t txfee, uint256 refbatontxid, CTransaction &se
 
     int64_t change = 0;
     //int32_t height = chainActive.LastTip()->GetHeight();
+    LOCK(cs_main);
     if ((numDebtors = MarmaraGetbatontxid(creditloop, batontxid, refbatontxid)) > 0)
     {
         CTransaction batontx;
@@ -4117,6 +4118,7 @@ static int32_t enum_credit_loops(int32_t nVoutMarker, struct CCcontract_info *cp
                                 uint256 hashBlock;
                                 uint8_t funcid;
 
+                                LOCK(cs_main);
                                 if (get_settlement_txid(settletxid, issuancetxid) == 0)
                                 {
                                     LOGSTREAMFN("marmara", CCLOG_DEBUG2, stream << "found settle tx for issueancetxid=" << issuancetxid.GetHex() << std::endl);
@@ -4194,6 +4196,8 @@ void MarmaraRunAutoSettlement(int32_t height, std::vector<CTransaction> & settle
                 {
                     LOGSTREAM("marmara", CCLOG_DEBUG2, stream << funcname << " " << "miner calling settlement for batontxid=" << batontxid.GetHex() << std::endl);
 
+                    // do not call LOCK(cs_main), it is already called in enum_credit_loops
+                    // also LOCK(cs_main) is called in MarmaraSettlement but should not create a problem
                     UniValue result = MarmaraSettlement(0, batontxid, newSettleTx);
                     if (result["result"].getValStr() == "success") {
                         LOGSTREAM("marmara", CCLOG_INFO, stream << funcname << " " << "miner created settlement tx=" << newSettleTx.GetHash().GetHex() <<  ", for batontxid=" << batontxid.GetHex() << std::endl);
@@ -4481,6 +4485,7 @@ UniValue MarmaraIssue(const CPubKey &remotepk, int64_t txfee, uint8_t funcid, co
 
             uint256 dummytxid;
             std::vector<uint256> creditloop;
+            LOCK(cs_main);
             int32_t endorsersNumber = MarmaraGetbatontxid(creditloop, dummytxid, requesttxid);
 
             int32_t height = get_next_height();
@@ -4682,6 +4687,7 @@ UniValue MarmaraCreditloop(const CPubKey & remotepk, uint256 txid)
         mypk = pubkey2pk(Mypubkey());
 
     cp = CCinit(&C, EVAL_MARMARA);
+    LOCK(cs_main);
     if ((n = MarmaraGetbatontxid(creditloop, batontxid, txid)) > 0)
     {
         if (get_loop_creation_data(creditloop[0], loopData, MARMARA_OPRET_VERSION_ANY) == 0)
