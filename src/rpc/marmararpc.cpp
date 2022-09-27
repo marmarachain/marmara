@@ -309,6 +309,7 @@ UniValue marmara_transfer(const UniValue& params, bool fHelp, const CPubKey& rem
         throw runtime_error("incorrect requesttxid\n");
 
     // find the baton for transfer call:
+    LOCK(cs_main);
     if (MarmaraGetbatontxid(creditloop, batontxid, requesttxid) < 0)
         throw runtime_error("couldnt find batontxid\n");
 
