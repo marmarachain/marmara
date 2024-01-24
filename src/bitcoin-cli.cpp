@@ -31,8 +31,9 @@
 #include <event2/buffer.h>
 #include <event2/keyvalq_struct.h>
 #include "support/events.h"
-uint16_t BITCOIND_RPCPORT = 7771;
-char ASSETCHAINS_SYMBOL[65];
+
+#include "komodo_structs.h"
+#include "komodo_globals.h"
 
 #include <univalue.h>
 
