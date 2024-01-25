@@ -33,12 +33,12 @@ jobs:
           # flag for some CC tests transactions - so DO NOT USE THIS CI ARTIFACTS IN PRODUCTION!!!
           export CPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/
           ./zcutil/build-mac-dtest.sh -j4
-          tar -czvf komodo-macos.tar.gz src/komodod src/komodo-cli
-      - name: Upload komodo-macos.tar.gz as artifact
+          tar -czvf marmara-macos.tar.gz src/marmarad src/marmara-cli
+      - name: Upload marmara-macos.tar.gz as artifact
         uses: actions/upload-artifact@v1
         with:
-          name: komodo-macos
-          path: ./komodo-macos.tar.gz
+          name: marmara-macos
+          path: ./marmara-macos.tar.gz
 
   # macos-test-dice-token-reards-faucet-cc:
 
@@ -83,16 +83,16 @@ jobs:
           brew install python3 curl
           python3 -m pip install setuptools wheel
           python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
-      - name: Download komodo-macos.tar.gz
+      - name: Download marmara-macos.tar.gz
         uses: actions/download-artifact@v1
         with:
-          name: komodo-macos
+          name: marmara-macos
 
       - name: Oracles Test (macos)
         run: |
-          mv komodo-macos/komodo-macos.tar.gz .
+          mv marmara-macos/marmara-macos.tar.gz .
           mkdir -p src
-          tar xzvf komodo-macos.tar.gz
+          tar xzvf marmara-macos.tar.gz
           ./zcutil/fetch-params.sh
           cd qa/pytest_komodo
           ./ci_setup.sh cc_modules/test_oracles.py
@@ -110,16 +110,16 @@ jobs:
           brew install python3 curl
           python3 -m pip install setuptools wheel
           python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
-      - name: Download komodo-macos.tar.gz
+      - name: Download marmara-macos.tar.gz
         uses: actions/download-artifact@v1
         with:
-          name: komodo-macos
+          name: marmara-macos
 
       - name: BasicRPC Test (macos)
         run: |
-          mv komodo-macos/komodo-macos.tar.gz .
+          mv marmara-macos/marmara-macos.tar.gz .
           mkdir -p src
-          tar xzvf komodo-macos.tar.gz
+          tar xzvf marmara-macos.tar.gz
           ./zcutil/fetch-params.sh
           cd qa/pytest_komodo
           ./ci_setup.sh basic
