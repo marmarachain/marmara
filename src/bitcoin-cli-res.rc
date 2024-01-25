@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Komodo"
-            VALUE "FileDescription",    "komodo-cli (JSON-RPC client for Komodo)"
+            VALUE "CompanyName",        "marmara"
+            VALUE "FileDescription",    "marmara-cli (JSON-RPC client for Marmara)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "komodo-cli"
+            VALUE "InternalName",       "marmara-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "komodo-cli.exe"
-            VALUE "ProductName",        "komodo-cli"
+            VALUE "OriginalFilename",   "marmara-cli.exe"
+            VALUE "ProductName",        "marmara-cli"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END
