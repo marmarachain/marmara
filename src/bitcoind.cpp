@@ -181,7 +181,7 @@ bool AppInit(int argc, char* argv[])
                        "\n"
                        "You can look at the example configuration file for suggestions of default\n"
                        "options that you may want to change. It should be in one of these locations,\n"
-                       "depending on how you installed Komodo:\n") +
+                       "depending on how you installed Marmara:\n") +
                      _("- Source code:  %s\n"
                        "- .deb package: %s\n")).c_str(),
                     GetConfigFile().string().c_str(),
