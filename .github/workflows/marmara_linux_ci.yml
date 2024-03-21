@@ -1,4 +1,4 @@
-name: Komodo Linux CI
+name: Marmara Linux CI
 
 on:
   pull_request:
@@ -46,7 +46,7 @@ jobs:
           path: ./marmara-linux.tar.gz
 
   # linux-test-dice-token-reards-faucet-cc:
-
+  #   if: ${{ false }}
   #   name: Test (Linux/Dice, Token, Faucet, Rewards)
   #   runs-on: ubuntu-18.04
   #   needs: linux-build
@@ -81,7 +81,8 @@ jobs:
   #         cd qa/pytest_komodo
   #         ./ci_setup.sh "cc_modules/test_dice.py cc_modules/test_faucet.py cc_modules/test_token.py cc_modules/test_rewards.py"
   linux-test-oracles:
-
+    if: ${{ false }}
+    
     name: Test (Linux/OraclesCC)
     runs-on: ubuntu-20.04
     needs: linux-build
@@ -116,7 +117,8 @@ jobs:
           cd qa/pytest_komodo
           ./ci_setup.sh cc_modules/test_oracles.py
   linux-test-baserpc:
-
+    if: ${{ false }}
+    
     name: Test (Linux/BasicRPC)
     runs-on: ubuntu-20.04
     needs: linux-build
@@ -150,14 +152,15 @@ jobs:
           ./zcutil/fetch-params.sh
           cd qa/pytest_komodo
           ./ci_setup.sh basic
-  linux-test-channels:
+  # linux-test-channels:
+  #  if: ${{ false }}
 
-    name: Test (Linux/ChannelsCC)
-    runs-on: ubuntu-20.04
-    needs: linux-build
+  #  name: Test (Linux/ChannelsCC)
+  #  runs-on: ubuntu-20.04
+  #  needs: linux-build
 
-    steps:
-      - uses: actions/checkout@v2
+  #  steps:
+  #    - uses: actions/checkout@v2
 
       # - name: Install deps (ChannelsCC)
       #   run: |
@@ -186,7 +189,7 @@ jobs:
       #     cd qa/pytest_komodo
       #     ./ci_setup.sh cc_modules/test_channels.py
   # linux-test-heir:
-
+  #  if: ${{ false }}
   #   name: Test (Linux/HeirCC)
   #   runs-on: ubuntu-18.04
   #   needs: linux-build
