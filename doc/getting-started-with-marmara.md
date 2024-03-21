@@ -1,59 +1,60 @@
 ## How to get started with Marmara?
 
-The basic Komodo software package includes two applications.
+The basic Marmara software package includes two applications.
 
-#### komodod
+#### marmarad
 
-The komodod software application is the Smart Chain daemon that powers all Komodo blockchains.
-#### komodo-cli
+The marmarad software application is the Smart Chain daemon that powers the Marmara blockchain.
 
-The komodo-cli software application allows a developer to execute API calls to komodod via the command line.
+#### marmara-cli
+
+The marmara-cli software application allows a developer to execute API calls to marmarad via the command line.
 
 ## MacOS
 
-Find the directory where ```komodod``` and ```komodo-cli``` are located. Open the command prompt and change to that directory. 
+Find the directory where ```marmarad``` and ```marmara-cli``` are located. Open the command prompt and change to that directory. 
 
-### Using komodo-cli and getinfo
+### Using marmara-cli and getinfo
 
 To see general information about MCL Smart chain, execute the ```getinfo``` command below:
 
 ```
-./komodo-cli -ac_name=MCL getinfo
+./marmara-cli getinfo
 ```
 
 When the returned properties of ```blocks``` and ```longestchain``` are equal to each other, the daemon is finished syncing with the network.
 
-One can interact with the MARMARA blockchain in MacOS by issuing the MARMARA commands as in [Linux OS](https://github.com/marmarachain/marmara/wiki/Getting-Started-with-Marmara#linux).
+One can interact with the MARMARA blockchain in MacOS by issuing the MARMARA commands as in [Linux OS](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara#linux).
 
 
 ## Windows
 
-Find the directory where ```komodod.exe``` and ```komodo-cli.exe``` are located. Open the command prompt and change to that directory. 
+Find the directory where ```marmarad.exe``` and ```marmara-cli.exe``` are located. Open the command prompt and change to that directory. 
 
 For instance, given that the respective files are located in Desktop under MCL folder; the command should be like below:
 ```
 cd Desktop\MCL\
 ```
 
-### Using komodo-cli and getinfo
+### Using marmara-cli and getinfo
 
 An example is given for ```getinfo``` command below:
 
 ```
-komodo-cli -ac_name=MCL getinfo
+marmara-cli getinfo
 ```
 
 ## Linux
 
-If you have downloaded and build MCL from source then you can run the commands under ```cd komodo/src``` directory. According to your configuration, ```komodod``` and ```komodo-cli```  may be under different directories. Hence, find where they are and change directory accordingly.
+If you have downloaded and build MCL from source then you can run the commands under ```cd komodo/src``` directory. According to your configuration, ```marmarad``` and ```marmara-cli```  may be under different directories. Hence, find where they are and change directory accordingly.
 
 Launch the Marmara Chain with the following parameters:
 ```
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+./marmarad -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 &
 ```
 Wait until it connects and synchronizes. You may check if the node synchronized to the chain by executing the following: 
 ```
-./komodo-cli -ac_name=MCL getinfo
+./marmara-cli getinfo
 ```
 
 ## _Indexing (Optional step for fastening up the process of downloading all the blocks)_**
@@ -65,7 +66,7 @@ Stop the Marmara blockchain by executing the following command:
     <summary> Linux: </summary>
     
 ```	
-./komodo-cli -ac_name=MCL stop
+./marmara-cli stop
 ```
 </details>
 
@@ -73,7 +74,7 @@ Stop the Marmara blockchain by executing the following command:
     <summary> Windows: </summary>
     
 ```	
-komodo-cli.exe -ac_name=MCL stop
+marmara-cli.exe stop
 ```
 </details>
 
@@ -98,7 +99,7 @@ Now, relaunch the Marmara Chain by using the following command:
     <summary> Linux: </summary>
     
 ```
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+./marmarad -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 &
 ```
 </details>
 
@@ -106,7 +107,7 @@ Now, relaunch the Marmara Chain by using the following command:
     <summary> Windows: </summary>
     
 ```
-komodod.exe -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 &
+marmarad.exe -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 &
 ```
 </details> 
 
@@ -122,7 +123,7 @@ In order to get a pubkey, launch the Marmara Chain with the normal launch parame
     <summary> Linux: </summary>
     
 ```	
-./komodo-cli -ac_name=MCL getnewaddress
+./marmara-cli getnewaddress
 ```
 </details>
 
@@ -130,7 +131,7 @@ In order to get a pubkey, launch the Marmara Chain with the normal launch parame
     <summary> Windows: </summary>
     
 ```	
-komodo-cli.exe -ac_name=MCL getnewaddress
+marmara-cli.exe getnewaddress
 ```
 </details> 
 
@@ -147,7 +148,7 @@ Now, execute the [validateaddress](https://developers.komodoplatform.com/basic-d
     <summary> Linux: </summary>
     
 ```	
-./komodo-cli -ac_name=MCL validateaddress DO_NOT_USE_THIS_ADDRESSgg5jonaes1J5L786
+./marmara-cli validateaddress DO_NOT_USE_THIS_ADDRESSgg5jonaes1J5L786
 ```
 </details>
 
@@ -155,7 +156,7 @@ Now, execute the [validateaddress](https://developers.komodoplatform.com/basic-d
     <summary> Windows: </summary>
     
 ```	
-komodo-cli.exe -ac_name=MCL validateaddress DO_NOT_USE_THIS_ADDRESSgg5jonaes1J5L786
+marmara-cli.exe validateaddress DO_NOT_USE_THIS_ADDRESSgg5jonaes1J5L786
 ```
 </details>
 
@@ -173,7 +174,7 @@ This will be your MCL pubkey, make sure to note it. You must now indicate it to 
     <summary> Linux: </summary>
     
 ```	
-./komodo-cli -ac_name=MCL stop
+./marmara-cli stop
 ```
 </details> 
 
@@ -181,7 +182,7 @@ This will be your MCL pubkey, make sure to note it. You must now indicate it to 
     <summary> Windows: </summary>
     
 ```	
-komodo-cli.exe -ac_name=MCL stop
+marmara-cli.exe stop
 ```
 </details>
 
@@ -193,7 +194,7 @@ Relaunch your daemon using the required parameters, and make sure to include you
     <summary> Linux: </summary>
     
 ```	
-./komodod -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=1 -pubkey=DO_NOT_USE_THIS_ADDRESS019n79b0921a1be6d3ca6f9e8a050mar17eb845fe46b9d756 &
+./marmarad -pubkey=DO_NOT_USE_THIS_ADDRESS019n79b0921a1be6d3ca6f9e8a050mar17eb845fe46b9d756 &
 ```
 </details>
 
@@ -201,7 +202,7 @@ Relaunch your daemon using the required parameters, and make sure to include you
     <summary> Windows: </summary>
     
 ```	
-komodod.exe -ac_name=MCL -ac_supply=2000000 -ac_cc=2 -addnode=5.189.149.242 -addnode=161.97.146.150 -addnode=149.202.158.145 -addressindex=1 -spentindex=1 -ac_marmara=1 -ac_staked=75 -ac_reward=3000000000 -gen -genproclimit=1 -pubkey=DO_NOT_USE_THIS_ADDRESS019n79b0921a1be6d3ca6f9e8a050mar17eb845fe46b9d756 &
+marmarad.exe -pubkey=DO_NOT_USE_THIS_ADDRESS019n79b0921a1be6d3ca6f9e8a050mar17eb845fe46b9d756 &
 ```
 </details>
 
@@ -223,7 +224,7 @@ The command for this is given below for demo purposes.
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL dumpprivkey "PWqwYaWNEVT7V9SdfFHARWnoB7vcpSfdvs"
+./marmara-cli dumpprivkey "PWqwYaWNEVT7V9SdfFHARWnoB7vcpSfdvs"
 ```
 </details>
 
@@ -231,7 +232,7 @@ The command for this is given below for demo purposes.
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL dumpprivkey "PWqwYaWNEVT7V9SdfFHARWnoB7vcpSfdvs"
+marmara-cli.exe dumpprivkey "PWqwYaWNEVT7V9SdfFHARWnoB7vcpSfdvs"
 ```
 </details>
 
@@ -249,7 +250,7 @@ The simplest form of command for this is given below for demo purposes.
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL importprivkey "DONOTUSETHISxxxxxxxxxxxxxxxxx7KkCmRnnSg7iXvRUqhYoxC9Y"
+./marmara-cli importprivkey "DONOTUSETHISxxxxxxxxxxxxxxxxx7KkCmRnnSg7iXvRUqhYoxC9Y"
 ```
 </details>
 
@@ -257,7 +258,7 @@ The simplest form of command for this is given below for demo purposes.
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL importprivkey "DONOTUSETHISxxxxxxxxxxxxxxxxx7KkCmRnnSg7iXvRUqhYoxC9Y"
+marmara-cli.exe importprivkey "DONOTUSETHISxxxxxxxxxxxxxxxxx7KkCmRnnSg7iXvRUqhYoxC9Y"
 ```
 </details>
 
@@ -271,7 +272,7 @@ Now, the wallet address can be validated through ```validateaddress``` to get th
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL validateaddress R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
+./marmara-cli validateaddress R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
 ``` 
 </details>
 
@@ -279,15 +280,15 @@ Now, the wallet address can be validated through ```validateaddress``` to get th
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL validateaddress R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
+marmara-cli.exe validateaddress R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
 ``` 
 </details>
 
-After getting the respective MCL pubkey from the response of the command above, relaunch the Marmara Chain with that pubkey as in [here](https://github.com/marmarachain/marmara/wiki/Getting-Started-with-Marmara#launching-mcl-with-pubkey) .  
+After getting the respective MCL pubkey from the response of the command above, relaunch the Marmara Chain with that pubkey as in [here](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara#launching-mcl-with-pubkey) .  
 
 ## Creating a Wallet Address from One's own Words in Marmara Blockchain
 
-For Linux OS; as previously explained, one can make use of the command `./komodo-cli -ac_name=MCL getnewaddress` in order to get a wallet address and then use the command `./komodo-cli -ac_name=MCL validateaddress "Rwalletno"` to get the respective Privkey.
+For Linux OS; as previously explained, one can make use of the command `./marmara-cli getnewaddress` in order to get a wallet address and then use the command `./marmara-cli -validateaddress "Rwalletno"` to get the respective Privkey.
 
 However, the `Privkey` received in this way consists of a hard to remember combination of letters and number. Note that keeping this privkey safe and secure and reachable only by you is very important and essential way to reach your assets. Hence, one can generate a privkey from his/her own set of words and keep a record of these words to generate the respective privkey whenerever needed.
 
@@ -299,7 +300,7 @@ Then use the following command to get the respective privkey generated:
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL convertpassphrase "can create your own keywords and generate privkey from these whenever needed"
+./marmara-cli convertpassphrase "can create your own keywords and generate privkey from these whenever needed"
 ```
 </details>
 
@@ -307,7 +308,7 @@ Then use the following command to get the respective privkey generated:
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL convertpassphrase "can create your own keywords and generate privkey from these whenever needed"
+marmara-cli.exe convertpassphrase "can create your own keywords and generate privkey from these whenever needed"
 ```
 </details>
  
@@ -326,7 +327,7 @@ Later, one can use `importprivkey` method to add the respective private key to t
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL importprivkey "UtqWJyhXjJWYigKyKCm5ML96LvSZFDfZrT2HYXAdGs8byZ3uCMzy"
+./marmara-cli importprivkey "UtqWJyhXjJWYigKyKCm5ML96LvSZFDfZrT2HYXAdGs8byZ3uCMzy"
 ```
 </details>
 
@@ -334,7 +335,7 @@ Later, one can use `importprivkey` method to add the respective private key to t
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL importprivkey "UtqWJyhXjJWYigKyKCm5ML96LvSZFDfZrT2HYXAdGs8byZ3uCMzy"
+marmara-cli.exe importprivkey "UtqWJyhXjJWYigKyKCm5ML96LvSZFDfZrT2HYXAdGs8byZ3uCMzy"
 ```
 </details>
 
@@ -370,7 +371,7 @@ The following command helps to check the mode of the node:
     <summary> Linux: </summary>
     
 ```	 
-./komodo-cli -ac_name=MCL getgenerate
+./marmara-cli getgenerate
 ```
 </details>
 
@@ -378,7 +379,7 @@ The following command helps to check the mode of the node:
     <summary> Windows: </summary>
     
 ```	 
-komodo-cli.exe -ac_name=MCL getgenerate
+marmara-cli.exe getgenerate
 ```
 </details>
 
@@ -401,7 +402,7 @@ To change mode of the node to **staking**, execute the command below:
     <summary> Linux: </summary>
     
 ```	   
- ./komodo-cli -ac_name=MCL setgenerate true 0
+ ./marmara-cli setgenerate true 0
 ```
 </details>
 
@@ -409,7 +410,7 @@ To change mode of the node to **staking**, execute the command below:
     <summary> Windows: </summary>
     
 ```	   
-komodo-cli.exe -ac_name=MCL setgenerate true 0
+marmara-cli.exe setgenerate true 0
 ```
 </details>
 
@@ -419,14 +420,14 @@ Now checking the status of the node:
     <summary> Linux: </summary>
     
 ```
- ./komodo-cli -ac_name=MCL getgenerate
+ ./marmara-cli getgenerate
 ```
 </details>
 <details>
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL getgenerate
+marmara-cli.exe getgenerate
 ```
 </details>
 
@@ -448,7 +449,7 @@ The amount is rounded to the nearest 0.00000001. A transaction fee is deducted f
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL sendtoaddress "MCL_address" amount
+./marmara-cli sendtoaddress "MCL_address" amount
 ```
 </details>
 
@@ -456,7 +457,7 @@ The amount is rounded to the nearest 0.00000001. A transaction fee is deducted f
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL sendtoaddress "MCL_address" amount
+marmara-cli.exe sendtoaddress "MCL_address" amount
 ```
 </details>
 
@@ -470,14 +471,14 @@ The following commands are useful for getting details about your node and wallet
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL getinfo
+./marmara-cli getinfo
 ```
 </details>
 <details>
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL getinfo
+marmara-cli.exe getinfo
 ```
 </details>
 
@@ -537,14 +538,14 @@ komodo-cli.exe -ac_name=MCL getinfo
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL getpeerinfo  
+./marmara-cli getpeerinfo  
 ```
 </details>
 <details>
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL getpeerinfo  
+marmara-cli.exe getpeerinfo  
 ```
 </details>
 
@@ -554,14 +555,14 @@ komodo-cli.exe -ac_name=MCL getpeerinfo
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL marmarainfo 0 0 0 0 pubkey
+./marmara-cli marmarainfo 0 0 0 0 pubkey
 ```
 </details>
 <details>
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL marmarainfo 0 0 0 0 pubkey
+marmara-cli.exe marmarainfo 0 0 0 0 pubkey
 ```
 </details>
 
@@ -574,14 +575,14 @@ komodo-cli.exe -ac_name=MCL marmarainfo 0 0 0 0 pubkey
     <summary> Linux: </summary>
     
 ```  
-./komodo-cli -ac_name=MCL marmaralock amount
+./marmara-cli marmaralock amount
 ```
 </details>
 <details>
     <summary> Windows: </summary>
     
 ```  
-komodo-cli.exe -ac_name=MCL marmaralock amount
+marmara-cli.exe marmaralock amount
 ```
 </details> 
 
@@ -597,18 +598,19 @@ Now, in order to confirm this transaction, copy the hex returned through the JSO
     <summary> Linux: </summary>
     
 ```  
-./komodo-cli -ac_name=MCL sendrawtransaction 0400008085202f89020039b219200ae4b5c83d77bffce7a8af054d6fb..........e9181f6aac3e1beb1e260e9a1f49ed24e6ac00000000edeb04000000000000000000000000
+./marmara-cli sendrawtransaction 0400008085202f89020039b219200ae4b5c83d77bffce7a8af054d6fb..........e9181f6aac3e1beb1e260e9a1f49ed24e6ac00000000edeb04000000000000000000000000
 ```
 </details>
 <details>
     <summary> Windows: </summary>
     
 ```  
-komodo-cli.exe -ac_name=MCL sendrawtransaction 0400008085202f89020039b219200ae4b5c83d77bffce7a8af054d6fb..........e9181f6aac3e1beb1e260e9a1f49ed24e6ac00000000edeb04000000000000000000000000
+marmara-cli.exe sendrawtransaction 0400008085202f89020039b219200ae4b5c83d77bffce7a8af054d6fb..........e9181f6aac3e1beb1e260e9a1f49ed24e6ac00000000edeb04000000000000000000000000
 ```
 </details> 
 
 If the above command gets successfully executed in the blockchain, it gives out a transaction id in response. One may check if this transaction is verified by searching the respective id in the [Marmara Explorer site](http://explorer.marmara.io).
+
 To see the activated coins, use ```marmarainfo``` command provided earlier and search for the value across the ```"myActivatedAmount"``` parameter. Note that the raw transactions are collected in the mempool and a few blocks may be needed to found to see the transaction recorded on the block.
 
 
@@ -618,14 +620,14 @@ To see the activated coins, use ```marmarainfo``` command provided earlier and s
     <summary> Linux: </summary>
     
 ```  
-./komodo-cli -ac_name=MCL marmaraunlock amount
+./marmara-cli marmaraunlock amount
 ```
 </details> 
 <details>
     <summary> Windows: </summary>
     
 ```  
-komodo-cli.exe -ac_name=MCL marmaraunlock amount
+marmara-cli.exe marmaraunlock amount
 ```
 </details>
 
@@ -636,14 +638,14 @@ In the same way explained earlier, this transaction needs to be validated throug
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL listaddressgroupings
+./marmara-cli listaddressgroupings
 ```
 </details>
 <details>
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL listaddressgroupings
+marmara-cli.exe listaddressgroupings
 ```
 </details>
 
@@ -656,7 +658,7 @@ This command is used to get all the activated, normal and locked in loop amount 
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL marmaraamountstat begin_height end_height
+./marmara-cli marmaraamountstat begin_height end_height
 ```
 </details>
 
@@ -664,14 +666,14 @@ This command is used to get all the activated, normal and locked in loop amount 
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL marmaraamountstat begin_height end_height
+marmara-cli.exe marmaraamountstat begin_height end_height
 ```
 </details>
 
 Example for Linux OS:
 
 ```
-./komodo-cli -ac_name=MCL marmaraamountstat 50000 60000
+./marmara-cli marmaraamountstat 50000 60000
 ```
 
 <details>
@@ -705,7 +707,7 @@ This command is used to get all the methods related to the Marmara smart chain.
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL help
+./marmara-cli help
 ```
 </details>
 
@@ -713,7 +715,7 @@ This command is used to get all the methods related to the Marmara smart chain.
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL help
+marmara-cli.exe help
 ```
 </details>
 One can also check out a specific method's parameters by issuing the following command with the method name mentioned:
@@ -722,7 +724,7 @@ For example:
     <summary> Linux: </summary>
     
 ```
-./komodo-cli -ac_name=MCL help getinfo
+./marmara-cli help getinfo
 ```
 </details>
 
@@ -730,7 +732,7 @@ For example:
     <summary> Windows: </summary>
     
 ```
-komodo-cli.exe -ac_name=MCL marmaraamountstat 
+marmara-cli.exe marmaraamountstat 
 ```
 </details>
 
