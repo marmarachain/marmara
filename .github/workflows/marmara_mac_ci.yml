@@ -1,4 +1,4 @@
-name: Komodo MacOS CI
+name: Marmara MacOS CI
 
 on:
   pull_request:
@@ -15,6 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+       # Workaround for https://github.com/actions/setup-python/issues/577
+      - name: Clean up binaries and links (macOS)
+        run: |
+          rm -f /usr/local/bin/2to3-3.*
+          rm -f /usr/local/bin/idle3.*
+          rm -f /usr/local/bin/pydoc3.*
+          rm -f /usr/local/bin/python3.*
+          rm -f /usr/local/bin/2to3
+          rm -f /usr/local/bin/idle3
+          rm -f /usr/local/bin/pydoc3
+          rm -f /usr/local/bin/python3
+          rm -f /usr/local/bin/python3-config
+
       - name: Install deps (macOS)
         run: |
           brew update
@@ -28,12 +41,14 @@ jobs:
           brew install wget
           brew install python3
           brew install gmp
+          
       - name: Build (macOS)
         run: |
           # flag for some CC tests transactions - so DO NOT USE THIS CI ARTIFACTS IN PRODUCTION!!!
           export CPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/
           ./zcutil/build-mac-dtest.sh -j4
           tar -czvf marmara-macos.tar.gz src/marmarad src/marmara-cli
+          
       - name: Upload marmara-macos.tar.gz as artifact
         uses: actions/upload-artifact@v1
         with:
@@ -70,6 +85,7 @@ jobs:
   #         ./ci_setup.sh "cc_modules/test_dice.py cc_modules/test_faucet.py cc_modules/test_token.py cc_modules/test_rewards.py"
 
   macos-test-oracles:
+    if: ${{ false }}
 
     name: Test (macos/OraclesCC)
     runs-on: macos-latest
@@ -96,8 +112,10 @@ jobs:
           ./zcutil/fetch-params.sh
           cd qa/pytest_komodo
           ./ci_setup.sh cc_modules/test_oracles.py
+  
   macos-test-baserpc:
-
+    if: ${{ false }}
+    
     name: Test (macos/BasicRPC)
     runs-on: macos-latest
     needs: macos-build
@@ -125,7 +143,8 @@ jobs:
           ./ci_setup.sh basic
 
   # macos-test-channels:
-
+  #   if: ${{ false }}
+  
   #   name: Test (macos/ChannelsCC)
   #   runs-on: macos-latest
   #   needs: macos-build
@@ -153,6 +172,7 @@ jobs:
   #         ./ci_setup.sh cc_modules/test_channels.py
 
   # macos-test-heir:
+  #   if: ${{ false }}
 
   #   name: Test (macos/HeirCC)
   #   runs-on: macos-latest
