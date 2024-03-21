@@ -34,7 +34,7 @@ More details are available under http://marmara.io/
 
 - To build Marmara from source, follow the [Marmara Credit Loops Build Instructions](https://github.com/marmarachain/marmara/doc/marmara-build-from-source.md).
 - To install Marmara from pre-compiled binaries, follow the [Marmara Credit Loops Install Instructions](https://github.com/marmarachain/marmara/doc/marmara-install-from-precompied-binaries.md).
-- To get started with Marmara Credit Loops, follow the [Marmara Credit Loops Usage Guidelines](https://github.com/marmarachain/marmara/wiki/Getting-Started-with-Marmara) and to make Marmara Credit Loops, follow the [Making Marmara Credit Loops](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara.md) guide.
+- To get started with Marmara Credit Loops, follow the [Making Marmara Credit Loops](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara.md) guide.
 
 ## Marmara Evolvement
 ### Marmara v.1.0.1 Hardfork Change log
