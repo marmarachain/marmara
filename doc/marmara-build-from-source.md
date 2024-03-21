@@ -155,7 +155,7 @@ cd marmara
 ./zcutil/build-mac.sh -j8
 ```
 
-Having completed these, launch the Marmara Chain by following the instructions in [here](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara.
+Having completed these, launch the Marmara Chain by following the instructions in [here](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara.md).
 
 ### Windows
 
