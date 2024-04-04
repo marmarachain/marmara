@@ -1754,7 +1754,7 @@ void komodo_args(char *argv0)
         fprintf(stderr, "Cannot be STAKED and KMD notary at the same time!\n");
         StartShutdown();
     }
-	name = GetArg("-ac_name","MCL");
+	name = "MCL";
     if ( argv0 != 0 )
     {
         len = (int32_t)strlen(argv0);
@@ -1888,7 +1888,7 @@ void komodo_args(char *argv0)
         ASSETCHAINS_TXPOW = GetArg("-ac_txpow",0) & 3;
         ASSETCHAINS_FOUNDERS = GetArg("-ac_founders",0);// & 1;
 		ASSETCHAINS_FOUNDERS_REWARD = GetArg("-ac_founders_reward",0);
-        ASSETCHAINS_SUPPLY = GetArg("-ac_supply",2000000);
+        ASSETCHAINS_SUPPLY = 2000000;
         if ( ASSETCHAINS_SUPPLY > (uint64_t)90*1000*1000000 )
         {
             fprintf(stderr,"-ac_supply must be less than 90 billion\n");
