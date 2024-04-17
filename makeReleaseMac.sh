@@ -3,13 +3,13 @@
 PACKAGE_DIR="$@"
 mkdir ${PACKAGE_DIR}
 
-binaries=("komodo-cli" "komodod")
+binaries=("marmara-cli" "marmarad")
 alllibs=()
 for binary in "${binaries[@]}";
 do
     # do the work in the destination directory
     cp src/${binary} ${PACKAGE_DIR}
-    # find the dylibs to copy for komodod
+    # find the dylibs to copy for marmarad
     DYLIBS=`otool -L ${PACKAGE_DIR}/${binary} | grep "/usr/local" | awk -F' ' '{ print $1 }'`
     echo "copying ${DYLIBS} to ${PACKAGE_DIR}"
     # copy the dylibs to the srcdir
@@ -20,7 +20,7 @@ libraries=("libgcc_s.1.dylib" "libgomp.1.dylib" "libidn2.0.dylib" "libstdc++.6.d
 
 for binary in "${libraries[@]}";
 do
-    # find the dylibs to copy for komodod
+    # find the dylibs to copy for marmarad
     DYLIBS=`otool -L ${PACKAGE_DIR}/${binary} | grep "/usr/local" | awk -F' ' '{ print $1 }'`
     echo "copying ${DYLIBS} to ${PACKAGE_DIR}"
     # copy the dylibs to the srcdir
@@ -33,7 +33,7 @@ for binary in "${indirectlibraries[@]}";
 do
     # Need to undo this for the dylibs when we are done
     chmod 755 src/${binary}
-    # find the dylibs to copy for komodod
+    # find the dylibs to copy for marmarad
     DYLIBS=`otool -L ${PACKAGE_DIR}/${binary} | grep "/usr/local" | awk -F' ' '{ print $1 }'`
     echo "copying indirect ${DYLIBS} to ${PACKAGE_DIR}"
     # copy the dylibs to the dest dir
@@ -42,7 +42,7 @@ done
 
 for binary in "${binaries[@]}";
 do
-    # modify komodod to point to dylibs
+    # modify marmarad to point to dylibs
     echo "modifying ${binary} to use local libraries"
     for dylib in "${alllibs[@]}"
     do

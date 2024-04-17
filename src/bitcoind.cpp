@@ -130,7 +130,7 @@ bool AppInit(int argc, char* argv[])
     // Process help and version before taking care about datadir
     if (mapArgs.count("-?") || mapArgs.count("-h") ||  mapArgs.count("-help") || mapArgs.count("-version"))
     {
-        std::string strUsage = _("Komodo Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n" + PrivacyInfo();
+        std::string strUsage = _("Marmara Daemon") + " " + _("version") + " " + FormatFullVersion() + "\n" + PrivacyInfo();
 
         if (mapArgs.count("-version"))
         {
@@ -139,7 +139,7 @@ bool AppInit(int argc, char* argv[])
         else
         {
             strUsage += "\n" + _("Usage:") + "\n" +
-                  "  komodod [options]                     " + _("Start Komodo Daemon") + "\n";
+                  "  marmarad [options]                     " + _("Start Marmara Daemon") + "\n";
 
             strUsage += "\n" + HelpMessage(HMM_BITCOIND);
         }
@@ -172,16 +172,16 @@ bool AppInit(int argc, char* argv[])
             ReadConfigFile(mapArgs, mapMultiArgs,1);
         } catch (const missing_zcash_conf& e) {
             fprintf(stderr,
-                    (_("Before starting komodod, you need to create a configuration file:\n"
+                    (_("Before starting marmarad, you need to create a configuration file:\n"
                        "%s\n"
                        "It can be completely empty! That indicates you are happy with the default\n"
-                       "configuration of komodod. But requiring a configuration file to start ensures\n"
-                       "that komodod won't accidentally compromise your privacy if there was a default\n"
+                       "configuration of marmarad. But requiring a configuration file to start ensures\n"
+                       "that marmarad won't accidentally compromise your privacy if there was a default\n"
                        "option you needed to change.\n"
                        "\n"
                        "You can look at the example configuration file for suggestions of default\n"
                        "options that you may want to change. It should be in one of these locations,\n"
-                       "depending on how you installed Komodo:\n") +
+                       "depending on how you installed Marmara:\n") +
                      _("- Source code:  %s\n"
                        "- .deb package: %s\n")).c_str(),
                     GetConfigFile().string().c_str(),
@@ -198,12 +198,12 @@ bool AppInit(int argc, char* argv[])
         // Command-line RPC
         bool fCommandLine = false;
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "komodo:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "marmara:"))
                 fCommandLine = true;
 
         if (fCommandLine)
         {
-            fprintf(stderr, "Error: There is no RPC client functionality in komodod. Use the komodo-cli utility instead.\n");
+            fprintf(stderr, "Error: There is no RPC client functionality in marmarad. Use the marmara-cli utility instead.\n");
             exit(EXIT_FAILURE);
         }
 
@@ -211,7 +211,7 @@ bool AppInit(int argc, char* argv[])
         fDaemon = GetBoolArg("-daemon", false);
         if (fDaemon)
         {
-            fprintf(stdout, "Komodo %s server starting\n",ASSETCHAINS_SYMBOL);
+            fprintf(stdout, "Marmara %s server starting\n",ASSETCHAINS_SYMBOL);
 
             // Daemonize
             pid_t pid = fork();
