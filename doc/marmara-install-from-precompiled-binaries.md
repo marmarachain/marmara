@@ -163,4 +163,4 @@ On Windows machine, the file is located below:
 ```
 
 ## Making Marmara Credit Loops
-Start the chain as with pubkey as instructed in the usage guideline [here](https://github.com/marmarachain/marmara/doc/getting-Started-with-marmara.md)
+Start the chain as with pubkey as instructed in the usage guideline [here](/doc/getting-started-with-marmara.md)

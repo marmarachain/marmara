@@ -30,7 +30,7 @@ One may build Marmara Credit Loops Smart Chain from source. This is not required
     Minimum 4GB of free RAM
 
 #### Get Started
-Verify that your system is up to date.
+Verify that your system is up to date.  
 ```	
 sudo apt-get update
 sudo apt-get upgrade -y
@@ -155,7 +155,7 @@ cd marmara
 ./zcutil/build-mac.sh -j8
 ```
 
-Having completed these, launch the Marmara Chain by following the instructions in [here](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara.md).
+Having completed these, launch the Marmara Chain by following the instructions in [here](/doc/getting-started-with-marmara.md).
 
 ### Windows
 
@@ -165,7 +165,7 @@ Rather, the software must be compiled on a Linux machine (Ubuntu recommended), a
 
 #### Requirements
 - Linux machine or Virtual Machine-based installation of Ubuntu Linux
-- Linux Requirements in [here](#### Requirements).
+- Linux Requirements in [here](/doc/marmara-build-from-source.md#L21).
 
 #### Install the dependency packages
 
@@ -237,4 +237,4 @@ cd marmara
 
 Once this step is completed, you will find ```marmarad.exe``` & ```marmara-cli.exe``` files inside the src directory. 
 
-Copy and move these files to the Windows machine. Continue from [here](https://github.com/marmarachain/marmara/doc/marmara-install-from-precompiled-binaries.md)
+Copy and move these files to the Windows machine. Continue from [here](/doc/marmara-install-from-precompiled-binaries.md)

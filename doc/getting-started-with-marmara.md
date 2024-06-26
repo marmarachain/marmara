@@ -24,7 +24,7 @@ To see general information about MCL Smart chain, execute the ```getinfo``` comm
 
 When the returned properties of ```blocks``` and ```longestchain``` are equal to each other, the daemon is finished syncing with the network.
 
-One can interact with the MARMARA blockchain in MacOS by issuing the MARMARA commands as in [Linux OS](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara#linux).
+One can interact with the MARMARA blockchain in MacOS by issuing the MARMARA commands as in [Linux OS](/doc/getting-started-with-marmara#linux).
 
 
 ## Windows
@@ -284,7 +284,7 @@ marmara-cli.exe validateaddress R9z796AehK5b6NCPeVkGUHSpJnawerf8oP
 ``` 
 </details>
 
-After getting the respective MCL pubkey from the response of the command above, relaunch the Marmara Chain with that pubkey as in [here](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara#launching-mcl-with-pubkey) .  
+After getting the respective MCL pubkey from the response of the command above, relaunch the Marmara Chain with that pubkey as in [here](/doc/getting-started-with-marmara.md#launching-mcl-with-pubkey).
 
 ## Creating a Wallet Address from One's own Words in Marmara Blockchain
 

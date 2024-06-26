@@ -32,23 +32,12 @@ More details are available under http://marmara.io/
 
 ## Getting Started
 
-- To build Marmara from source, follow the [Marmara Credit Loops Build Instructions](https://github.com/marmarachain/marmara/doc/marmara-build-from-source.md).
-- To install Marmara from pre-compiled binaries, follow the [Marmara Credit Loops Install Instructions](https://github.com/marmarachain/marmara/doc/marmara-install-from-precompied-binaries.md).
-- To get started with Marmara Credit Loops, follow the [Making Marmara Credit Loops](https://github.com/marmarachain/marmara/doc/getting-started-with-marmara.md) guide.
+- To build Marmara from source, follow the [Marmara Credit Loops Build Instructions](/doc/marmara-build-from-source).
+- To install Marmara from pre-compiled binaries, follow the [Marmara Credit Loops Install Instructions](/doc/marmara-install-from-precompiled-binaries.md).
+- To get started with Marmara Credit Loops, follow the [Making Marmara Credit Loops](/doc/getting-started-with-marmara.md) guide.
 
-## Marmara Evolvement
-### Marmara v.1.0.1 Hardfork Change log
-```
-- fixed incorrect coin cache usage causing chain forks
-- staking utxo processing performance improvements
-- loop transaction validation fixes
-- chain security fixes and improvements
-- fixed settlement failure on the loop holder node
-- fixed memory leaks
-- fixed daemon crash if multiple setgenerate true 0 calls are done
-```
 
-### Contact
+## Contact
 - B. Gültekin Çetiner [![twitter](https://img.shields.io/twitter/follow/drcetiner?style=social)](https://twitter.com/drcetiner )
 
 License
