@@ -97,17 +97,17 @@ static int AppInitRPC(int argc, char* argv[])
     //
     ParseParameters(argc, argv);
     std:string name;
-    name = GetArg("-ac_name","");
+    name = GetArg("-ac_name","MCL");
     if ( !name.empty() )
         strncpy(ASSETCHAINS_SYMBOL,name.c_str(),sizeof(ASSETCHAINS_SYMBOL)-1);
 
     if (argc<2 || mapArgs.count("-?") || mapArgs.count("-h") || mapArgs.count("-help") || mapArgs.count("-version")) {
-        std::string strUsage = _("Komodo RPC client version") + " " + FormatFullVersion() + "\n" + PrivacyInfo();
+        std::string strUsage = _("Marmara RPC client version") + " " + FormatFullVersion() + "\n" + PrivacyInfo();
         if (!mapArgs.count("-version")) {
             strUsage += "\n" + _("Usage:") + "\n" +
-                  "  komodo-cli [options] <command> [params]  " + _("Send command to Komodo") + "\n" +
-                  "  komodo-cli [options] help                " + _("List commands") + "\n" +
-                  "  komodo-cli [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  marmara-cli [options] <command> [params]  " + _("Send command to Marmara") + "\n" +
+                  "  marmara-cli [options] help                " + _("List commands") + "\n" +
+                  "  marmara-cli [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessageCli();
         } else {

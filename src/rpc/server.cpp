@@ -271,7 +271,7 @@ UniValue stop(const UniValue& params, bool fHelp, const CPubKey& mypk)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop Komodo server.");
+            "\nStop Marmara server.");
 
 #ifdef ENABLE_WALLET
     GenerateBitcoins(false, pwalletMain, 0);
@@ -873,10 +873,8 @@ std::string HelpExampleCli(const std::string& methodname, const std::string& arg
 {
     if ( ASSETCHAINS_SYMBOL[0] == 0 ) {
         return "> komodo-cli " + methodname + " " + args + "\n";
-    } else if ((strncmp(ASSETCHAINS_SYMBOL, "HUSH3", 5) == 0) ) {
-        return "> hush-cli " + methodname + " " + args + "\n";
     } else {
-        return "> komodo-cli -ac_name=" + strprintf("%s", ASSETCHAINS_SYMBOL) + " " + methodname + " " + args + "\n";
+        return "> marmara-cli " + methodname + " " + args + "\n";
     }
 }
 
