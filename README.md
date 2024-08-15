@@ -9,7 +9,6 @@
 [![gitstars](https://img.shields.io/github/stars/komodoplatform/komodo?style=social)](https://github.com/KomodoPlatform/komodo/stargazers)
 [![twitter](https://img.shields.io/twitter/follow/marmarachain?style=social)](https://twitter.com/marmarachain)
 [![discord](https://img.shields.io/discord/412898016371015680)](https://discord.gg/QZNMw73)
-[![https://img.shields.io/badge/LANGUAGE-TR-blue](https://img.shields.io/badge/LANGUAGE-TR-blue)](https://github.com/marmarachain/marmara/blob/master/TR/Marmara_Kredi_D%C3%B6ng%C3%BCleri.md)
 
 ![MarmaraCreditLoops Logo](https://raw.githubusercontent.com/marmarachain/marmara/master/MCL-Logo.png "Marmara Credit Loops Logo")
 
@@ -48,16 +47,83 @@ More details are available under http://marmara.io/
 - To install/download Marmara Credit Loops, follow the [Marmara Credit Loops Instructions](https://github.com/marmarachain/marmara/wiki).
 - To get started with Marmara Credit Loops, follow the [Marmara Credit Loops Usage Guidelines](https://github.com/marmarachain/marmara/wiki/Getting-Started-with-Marmara) and to make Marmara Credit Loops, follow the [Making Marmara Credit Loops](https://github.com/marmarachain/marmara/wiki/How-to-make-Marmara-Credit-Loops?) guide.
 
-## Marmara Evolvement
-### Marmara v.1.0.1 Hardfork Change log
+### Linux
+
+#### Requirements
+
+    Linux (easiest with a Debian-based distribution, such as Ubuntu)
+        For Ubuntu, we recommend using the 18.04 or 20.02 releases
+    64-bit Processor
+    Minimum 2 CPUs
+    Minimum 4GB of free RAM
+
+#### Build Marmara from Source
+
+Note: For Ubuntu 20.04, please change the python-zmq library to python3-zmq below.
+
+Install the dependency packages:
+```	
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget curl bsdmainutils automake cmake clang ntp ntpdate nano -y
 ```
-- fixed incorrect coin cache usage causing chain forks
-- staking utxo processing performance improvements
-- loop transaction validation fixes
-- chain security fixes and improvements
-- fixed settlement failure on the loop holder node
-- fixed memory leaks
-- fixed daemon crash if multiple setgenerate true 0 calls are done
+Build marmara from source:
+```	
+cd ~
+git clone https://github.com/marmarachain/marmara --branch master --single-branch
+cd marmara
+./zcutil/fetch-params.sh
+./zcutil/build.sh -j$(expr $(nproc) - 1)
+#This can take some time.
+```
+
+### OSX
+
+Ensure you have brew and Command Line Tools installed.
+
+```	
+# Install brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Install Xcode, opens a pop-up window to install CLT without installing the entire Xcode package
+xcode-select --install 
+# Update brew and install dependencies
+brew update
+brew upgrade
+brew tap discoteq/discoteq; brew install flock
+brew install autoconf autogen automake
+brew update && brew install gcc@8
+brew install binutils
+brew install protobuf
+brew install coreutils
+brew install wget
+# Clone the Marmara repo
+git clone https://github.com/marmarachain/marmara --branch master --single-branch
+cd marmara
+./zcutil/fetch-params.sh
+./zcutil/build-mac.sh -j$(expr $(sysctl -n hw.ncpu) - 1)
+# This can take some time.
+```
+
+### Windows
+
+Use a debian cross-compilation setup with mingw for windows and run:
+
+Note: For Ubuntu 20.04, please change the python-zmq library to python3-zmq below.
+
+```	
+sudo apt-get install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-gnutls-dev bsdmainutils automake curl libsodium-dev cmake mingw-w64
+
+# install rust
+curl https://sh.rustup.rs -sSf | sh
+source $HOME/.cargo/env
+rustup target add x86_64-pc-windows-gnu
+sudo update-alternatives --config x86_64-w64-mingw32-gcc
+# (configure to use POSIX variant)
+sudo update-alternatives --config x86_64-w64-mingw32-g++
+# (configure to use POSIX variant)
+
+git clone https://github.com/marmarachain/marmara --branch master --single-branch
+cd marmara
+./zcutil/fetch-params.sh
+./zcutil/build-win.sh -j$(nproc)
 ```
 
 ### Contact
