@@ -633,113 +633,72 @@ static const char *notaries_elected[NUM_KMD_SEASONS][NUM_KMD_NOTARIES][2] =
    },
    {
         // Season 8
-        {"alright_DEV", "028548847b3bbccff37c9b47bc4154183304902773d514b792ec2adc91e600e3b9"}, // 0
-        {"alien_AR", "03a40091ce1e7aa9863d9ad0c27f67b7d18bb47612438570ce344cd1782937c575"},
-        {"alien_EU", "03bb749e337b9074465fa28e757b5aa92cb1f0fea1a39589bca91a602834d443cd"},
-        {"alien_NA", "03bea1ac333b95c8669ec091907ea8713cae26f74b9e886e13593400e21c4d30a8"},
-        {"alien_SH", "03911a60395801082194b6834244fa78a3c30ff3e888667498e157b4aa80b0a65f"},
-        {"alienx_EU", "026afe5b112d1b39e0edafd5e051e261a676104460581f3673f26ceff7f1e6c56c"},
-        {"alienx_NA", "02f0b3ef87629509441b1ae95f28108f258a81910e483b90e0496205e24e7069b8"},
-        {"artist_SH", "023f9632eb3dc7fd1cfd700bb58de2da51bfa5898838586f49afdd145bddac16b6"},
-        {"batman_EU", "0358441eca9d8d24cd756fb3308fd7c9d60fe2b5af702ce5c9c1429cbea7a4c284"},
-        {"blackice_AR", "02bbc5518d27918d77c46b4e3ad0b9df936df520646527ab4c2f206544a2b03967"},
-        {"blackice_EU", "02340bf4749a392865b0ddaf37e652195e740c7538aeac87f7a51b8bf2dcdc24ac"}, // 10
-        {"blackice_NA", "035baa12331ad6c284d5f1b76527c1d6c5eb15a74b9ba369e5d46aefcc9c120938"},
-        {"blackice_SH", "02c275d12560b2c8238b8a10a8fc8da891784eb7b2ff5d3310ebcb666e47579571"},
-        {"blackice2_AR", "03d224790d17b881db560759cc9cc73fe5c865136a88af471ea156b7eb6d88ce32"},
-        {"ca333_EU", "030a18ffa85e2928ed37b2e30dbeb9bfb30b21fb15c5c4bcbd61d26b945e398e2b"},
-        {"chmex_AR", "036c856ea778ea105b93c0be187004d4e51161eda32888aa307b8f72d490884005"},
-        {"chmex_EU", "025b7209ba37df8d9695a23ea706ea2594863ab09055ca6bf485855937f3321d1d"},
-        {"chmex_NA", "030c2528c29d5328243c910277e3d74aa77c9b4e145308007d2b11550731591dbe"},
-        {"chmex_SH", "02698305eb3c27a2c724efd2152f9250739355116f201656c34b83aac2d3aebd19"},
-        {"chmexvet_SH", "02d27ed1cddfbaff9e47865e7df0165457e8f075f70bbea8c0498598ccf494555d"},
-        {"cipi_AR", "033ae024cdb748e083406a2e20037017a1292079ad6a8161ae5b43f398724fea74"}, // 20
-        {"cipi_EU", "03d6e1f3a693b5d69049791005d7cb64c259a1ad85833f5a9c545d4fee29905009"},
-        {"cipi_NA", "036cc1d7476e4260601927be0fc8b748ae68d8fec8f5c498f71569a01bd92046c5"},
-        {"cipi2_NA", "0306531923dbd4517d15e932668b64cbf95cc6c4293e46c8b5825c6543e0f06b15"},
-        {"colmapol_EU", "020c63078b5f5d27183de6f2bbae9bfe3fc57e017faf89b7d566bb947a92a2e40d"},
-        {"dimxy_AR", "02689d0b77b1e8e8c93a102d8b689fd08179164d70e2dd585543c3896a0916e6a1"},
-        {"dragonhound_AR", "030a72f1a15f67624aea55743c5b777bdd55362596add77b544ee2e582bdebf0c7"},
-        {"dragonhound_EU", "0286d7af8583e18127bd1f45730916b4f48ae3e0c90181b2745174b91b76c6e28b"},
-        {"dragonhound_NA", "0306476ea5fb67aec667172a9bb30646dbff195b84c30ac958175af9b475987802"},
-        {"dragonhound_SH", "02fe8e5a64979bc8e55b24e121182d2f1948e00a050c77407edbfc9cc8c012d679"},
-        {"fediakash_AR", "027dfe5403f8870fb0e1b94a2b4204373b31ea73179ba500a88dd56d22855cd03b"}, // 30
-        {"fediakash_NA", "024b31751c90dd9bd31e9a419be54d6f6cb7f4a85ea475359852ab645124010290"},
-        {"francois_SH", "02fdbb8fdfa4b859e1a21c30824f8c04e15c8886b1e1cab5d9d0bd89c353eb9710"},
-        {"gcharang_AR", "030de3d833ba049da08231ca6b622c77c7f96b26269963291d9604706bb94031a5"},
-        {"gcharang_SH", "02cb445948bf0d89f8d61102e12a5ee6e98be61ac7c2cb9ba435219ea9db967117"},
-        {"gcharang2_SH", "02567b688c180212df97b65273e70512f5f1f5edd20eb5fb85c7efa2a510e363d7"},
-        {"kmdude_SH", "02116774b25226d0b99f70a24f55c5ce17a7af6d3522071369c233157ecb27b82a"},
-        {"marmarachain_AR", "0335ab9e59d602df5580b964b6451d02cd9cc243ddf01b065db84375488df9f53c"},
-        {"marmarachain_EU", "0234e40800500370d43979586ee2cec2e777a0368d10c682e78bca30fd1630c18d"},
-        {"mcrypt_NA", "03ccaa74304165e0d66968c3f714942a130d67f02db1c2f910a75dfc15c0d3d58f"},
-        {"naezith_EU", "038f61a0418deafdb9fa8809a5df0956943f423364022cab578c3fcb158f3dfc55"}, // 40
-        {"naezith_NA", "033d9e2e3e51627b4cf9fec2ddbaadfd76a50965d423a2741e5b0db6ab13a057af"},
-        {"onur-ozkan_EU", "03c159a0733fb3d15d0b6e7eb67568343c10891eb6f1e8ab0ae6fbe9e33af17bc0"},
-        {"onur-ozkan_NA", "02be4ac61cf534b0fb98568ec539ee9e34c5104088f94f21cee2945d37d88373da"},
-        {"pbca26_NA", "024034ed324e69316d6f6d554168b56828e40334f99d7adfe4ef9248c49d433e12"},
-        {"ptyx_SH", "02ac5e2bc7bd5372395eab76c56951f699af617cd4e1fa2926eb7318e9caecd531"},
-        {"shamardy_SH", "026d378de09ba51d8f56be52bc8d02f5e20bae843406e23686047b76c72412a7b3"},
-        {"smdmitry_AR", "022a2a45979a6631a25e4c96469423de720a2f4c849548957c35a35c91041ee7ac"},
-        {"smdmitry2_AR", "026e33b213be94fa7c05c781cb1d2fb381e4c4ef6aad40d6a67f0a8ad573d92efe"},
-        {"smdmitry_EU", "02eb3aad81778f8d6f7e5295c44ca224e5c812f5e43fc1e9ce4ebafc23324183c9"},
-        {"smdmitry_NA", "020580cbdfc051bdac9e5d05fe9a6b6a15885fbd3989c6662001f2399c6e0d7e4c"}, // 50
-        {"smdmitry_SH", "02d01cd6b87cbf5a9795c06968f0d169168c1be0d82cfeb79958b11ae2c30316c1"},
-        {"strob_SH", "025ceac4256cef83ca4b110f837a71d70a5a977ecfdf807335e00bc78b560d451a"},
-        {"gcharang_DEV", "033b82b5791c65477dd11095cf33332013df6d2bcb7aa06a6dae5f7b22b6959b0b"},
-        {"dimxy_DEV", "039a01cd626d5efbe7fd05a59d8e5fced53bacac589192278f9b00ad31654b6956"},
-        {"ca333_DEV", "03cf925a2d7d697448c3ac6fff9aff349b80d773b4ce7de22c9ef7e2c8c002bec6"},
-        {"qa_DEV", "036f42e1888378068c3a17a53665b0a9db21465571d63ca02eb8d5681afa709074"},
-        {"core_DEV", "03955c7999538cee313bf196a7df59db208c651f6a5a1b0eed94732ba753b4f3f4"},
-        {"security_DEV", "022450f4f32435372b43dc2b9d5b690114fbe5e5dcbe0c02ab8164698f1a9eda6e"},
-        {"tonyl_AR", "0277bbdf6403d1ebaac5a715a9120118e74be0d3bed71a2c8cf5542fb6ca7d2dd7"},
-        {"van_EU", "03af7f8c82f20671ca1978116353839d3e501523e379bfb52b1e05d7816bb5812f"}, // 60
-        {"who-biz_AR", "03057d4c00c4e18f72faa4234aada9ad17ecd4bd9455c548edef16b94befa1a087"},
-        {"who-biz_NA", "03170d900f6d6a13002255b708f7bd27e55b5c05d1ddbaf8c25a1fc287d9f804ed"},
-        {"dragonhound_DEV", "02f9a7b49282885cd03969f1f5478287497bc8edfceee9eac676053c107c5fcdaf"}
+        {"alright_DEV", "02b698fee0945be7c2a489fc2ef93f956e491d5352228e5b4612219bba36590716"},
+		{"alien_AR", "03ae0b483a41bafd5ac9820ef15ffe60091f795726fd0994dea4043dfa9863fb46"},
+		{"alien_EU", "022b85908191788f409506ebcf96a892f3274f352864c3ed566c5a16de63953236"},
+		{"alien_NA", "022f62b56ddfd07c9860921c701285ac39bb3ac8f6f083d1b59c8f4943be3de162"},
+		{"alien_SH", "024f20c096b085308e21893383f44b4faf1cdedea9ad53cc7d7e7fbfa0c30c1e71"},
+		{"alienx_EU", "025de0911bab55616c307f02ea8a5915a2e0c8e479aa97968e7f00d1025cbe6c6d"},
+		{"alienx_NA", "025d5e11725233ab161f4f63d697c5f9f0c6b9d3aa2b9c68299638f8cc63faa9c2"},
+		{"artist_SH", "03f0a59c15984d7627a38a7ee75fb4f4c41c6c6db58ff245efb429a1e7820c51dc"},
+		{"batman_EU", "0373c4bf6cadb907597ef11d37d040cdb5dc73486beb0b8902837448f4087e0b7a"},
+		{"blackice_AR", "032674b15524dab1c7a5824aa9d3d38f231a8a04095e11920677ee99d8197d9c60"},
+		{"blackice_EU", "0271663454ffe07b7a13f25c93482bb554bab646627ee78941f6e59473a423e9c5"},
+		{"blackice_NA", "035e356c96d4bc8ddd11109f679b44034fdd22003b87a8deeaae6ba2bb938f7e05"},
+		{"blackice_SH", "0320b53f460e2867aacc578432d7ad5deb8f6f0da8e9c5ae65711011d692838bd4"},
+		{"blackice2_AR", "022b10b7ec56b5c9f12bc9db1055edb3c2c0e0530453b7cc05239e4a3c442e80c4"},
+		{"ca333_EU", "02da199f5da76cee5f09b4065e12ed454876308195cf45103e55f9837b4a1422d5"},
+		{"chmex_AR", "030cd487e10fbf142e0e8d582e702ecb775f378569c3cb5acd0ff97b6b12803588"},
+		{"chmex_EU", "030bf7bd7ad0515c33b5d5d9a91e0729baf801b9002f80495ae535ea1cebb352cb"},
+		{"chmex_NA", "024e88a36d729352a391e07d1821dbfda1fca6409320cf9c2869b6fb99f05fbddd"},
+		{"chmex_SH", "03e09c8ee6ae20cde64857d116c4bb5d50db6de2887ac39ea3ccf6434b1abf8698"},
+		{"chmexvet_SH", "02d59db293de6c7da6673beeb373ebce62fd6d3522f715ea1356b5a2624fbd11a2"},
+		{"cipi_AR", "02336758998f474659020e6887ece61ac7b8567f9b2d38724ebf77ae800c1fb2b7"},
+		{"cipi_EU", "033a812d6cccdc4208378728f3a0e15db5b12074def9ab686ddc3752715ff1a194"},
+		{"cipi_NA", "0335352862da521bd90b99d394db1ee3ecde379db9cf7ba2f28b16fa76153e289f"},
+		{"cipi2_NA", "03b267592b0cb91d115524e7412e9ea79b30fbc8e29b8dcbbf850110f2e1d8c1ab"},
+		{"colmapol_EU", "02754ae5585df0eba995f8e0aa1768b1424eaa04a3f1269a4cf37a8d4446f48a6d"},
+		{"dimxy_AR", "0337e443df52f278f313f90628aaaa7a8db777f17bc7ce519069eb72717c1c2755"},
+		{"dragonhound_AR", "039bb16266b0216264e7d3ccae12633105e1c14bd5d0e144e8b9c2b6d298a6c545"},
+		{"dragonhound_EU", "0382d7e027bf5cda31264867f4e389a1a72f6671c7bd8818beb35b874d906e22d5"},
+		{"dragonhound_NA", "02b4bf90b57f7c8363043c7ea8b02c8c776301ef3c1abb2df1caa2e6947be1422b"},
+		{"dragonhound_SH", "02125e737f34c426474c9d29ec280bf49dc5ac99bffb6296b71a5031f58485ec86"},
+		{"fediakash_AR", "035be6a54242a53e3ca55bd63430ac9b960fbfaad336d8c1464b5802f03ab184be"},
+		{"fediakash_NA", "032485e92b4f06613c43123a178de96386e130311030958a736805d7b278df2f11"},
+		{"francois_SH", "0285e1699d28cc6d134e476d85ee37badabc795f136df39e414fe6ca2b204e3a2f"},
+		{"gcharang_AR", "039e01651c0afa1fc80b620301ff1981dd1db0f6c6b637b8f2f0fd986e9f5ece59"},
+		{"gcharang_SH", "0321868e0eb39271330fa2c3a9f4e542275d9719f8b87773c5432448ab10d6943d"},
+		{"gcharang2_SH", "0261b0337647329677b9885b050069a4737f139266c55ec711148af757a0276bc5"},
+		{"kmdude_SH", "0253649e80366bb3a84c447ae2632d0ab272640be61ceb34291068c58531dae528"},
+		{"marmarachain_AR", "0359809ec0774cf6a2679257c4db240b9061b08f72d9888e3323326f7428ddf93a"},
+		{"marmarachain_EU", "02ca3e0618bc7c75afa6359ae476ee639682adfaa6fc463bbe7016c4f00da23ccf"},
+		{"mcrypt_NA", "038e6f54c15eda9844e956206138494312648da158280a837341894fc642d8066a"},
+		{"naezith_EU", "0310f58935bc72ed76f90301f8bcd8caea576603275493b9c664aa9ed25aa492c6"},
+		{"naezith_NA", "031e48218c2e7fea3c852a3674848786c05d06fd451da4e14a6193363cf89febce"},
+		{"onur-ozkan_EU", "02387f4093ba78ea6aa9023bd2b3e1d57a4d9d5e745a9cc6cb1bca2565c22f8c89"},
+		{"onur-ozkan_NA", "03259f6aa4d3c451a52b7327bff4af9f649be3477459997b52711b54f4c8fb6394"},
+		{"pbca26_NA", "025349e2ef906bb8dff17275d5d1034edf261d7b3b0fef02643c4e7227e161cd54"},
+		{"ptyx_SH", "02eeaea84667462ae3e0c9262037666af81200b7982682ea06b690b1ac32a48c83"},
+		{"shamardy_SH", "03589e28ad013c6ed3df0ed9947ecc2b6873a211be8aa3a745d3fea459b12a6435"},
+		{"smdmitry_AR", "0397b7584cb29717b721c0c587d4462477efc1f36a56921f133c9d17b0cd7f278a"},
+		{"smdmitry2_AR", "03c1efa0a64392e68cf50a13e4611b272b914cfba1e07f49f94389db3bac4497de"},
+		{"smdmitry_EU", "0338f30ca34d0aca0d79b69abde447036aaaa75f482b6c75801fd382e984337d01"},
+		{"smdmitry_NA", "038429f7abe33af2d6841029710b835223a05830fc8eee29521ec051e2f2d2e517"},
+		{"smdmitry_SH", "03f7d5ac650baaccedab959adf7c4f416584f4c05a37bf079f710227560c456978"},
+		{"strob_SH", "0213751a1c59d3489ca85b3d62a3d606dcef7f0428aa021c1978ea16fb38a2fad6"},
+		{"gcharang_DEV", "03a3878af1152f648e6084fd3fbe697a26b1c2e92d407dd96c375f45f7d3ca13bf"},
+		{"dimxy_DEV", "03a7edd6d0ba188960e39eced4d6b4ca6946bd98323ab40cbc13d6e52696de7dc4"},
+		{"ca333_DEV", "0387b2a4c99127e871efeed28b73d6cf8296bb4aa8630e2cfb16490fdc47e0a561"},
+		{"qa_DEV", "02ba8283b22c6572d83fd852e04928621dd0e2dd53150b5636ba64404ea73423bb"},
+		{"core_DEV", "035509136135ba8e3f5d4733f7a9c160c2e1fefd8dc4658c3d95a5407e8da14749"},
+		{"security_DEV", "037f666a67135f748ca3ffec29394662c71e917709bf61fee15a363655a8dff57e"},
+		{"tonyl_AR", "03643e81eb0ac245c2caefe013b4357979f69ea585d6803182b230790dbcfb9ecf"},
+		{"van_EU", "0370305b9e91d46331da202ae733d6050d01038ef6eceb2036ada394a48fae84b9"},
+		{"who-biz_AR", "03a185b059983a5479e3adba44eb5dde8d899468632ba30480301a9f1bbbcbc4a8"},
+		{"who-biz_NA", "026d5cecdee3021a80416c3d8ac68e59fd3d77a954bbe88a8eee794ade6c58f411"},
+		{"dragonhound_DEV", "02a473e980bf0d198ece8ed11f1ecbe437edb688de6c83b82efa6f7de3a5d43c19"}
    }
 };
-
-class NotaryChecker {
-public:
-    NotaryChecker() {
-        checkSeasons();
-        checkNotaries();
-    }
-
-private:
-    void checkSeasons() const {
-        for (size_t i = 0; i < NUM_KMD_SEASONS; ++i) {
-            assert(KMD_SEASON_TIMESTAMPS[i] != 0 && "KMD_SEASON_TIMESTAMPS is invalid");
-            assert(KMD_SEASON_HEIGHTS[i] != 0 && "KMD_SEASON_HEIGHTS is invalid");
-        }
-    }
-
-    void checkNotaries() const {
-        for (int season = 0; season < NUM_KMD_SEASONS; ++season) {
-            for (int notary = 0; notary < NUM_KMD_NOTARIES; ++notary) {
-                const char* name = notaries_elected[season][notary][0];
-                const char* pubkey = notaries_elected[season][notary][1];
-                assert(name != nullptr && "Notary name is null");
-                assert(pubkey != nullptr && "Notary pubkey is null");
-                assert(isValidPubkey(pubkey) && "Notary pubkey is invalid");
-            }
-        }
-    }
-
-    bool isValidPubkey(const char* str) const {
-        if (strlen(str) != 66) return false;
-        if (str[0] != '0' || (str[1] != '2' && str[1] != '3')) return false;
-        for (int i = 2; i < 66; ++i) {
-            if (!((str[i] >= '0' && str[i] <= '9') || (str[i] >= 'a' && str[i] <= 'f') || (str[i] >= 'A' && str[i] <= 'F'))) {
-                return false;
-            }
-        }
-        return true;
-    }
-};
-
-NotaryChecker notaryChecker;
 
 #define SETBIT(bits,bitoffset) (((uint8_t *)bits)[(bitoffset) >> 3] |= (1 << ((bitoffset) & 7)))
 #define GETBIT(bits,bitoffset) (((uint8_t *)bits)[(bitoffset) >> 3] & (1 << ((bitoffset) & 7)))
