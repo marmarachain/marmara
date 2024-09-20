@@ -56,6 +56,11 @@ const int32_t nS6HardforkHeight = 2963330; // estimated June 24 2022
 const uint32_t nS7Timestamp = 1688132253;   // dPoW Season 7, Fri Jun 30 2023 13:37:33 GMT+0000
 const int32_t nS7HardforkHeight = 3484958;  // dPoW Season 7, Fri Jun 30 2023
 
+const uint32_t nS8Timestamp = 1728049053;   // dPoW Season 8, Fri Oct 4 2024 13:37:33 GMT+0000
+const int32_t nS8HardforkHeight = 4125988;  // dPoW Season 8, Fri Oct 4 2024 (est. via https://github.com/KomodoPlatform/NotaryNodes/blob/master/utils/estimate_hf_block.py)
+
+const int32_t nKIP0003Activation = nS8HardforkHeight;
+
 #define _COINBASE_MATURITY 100
 int COINBASE_MATURITY = _COINBASE_MATURITY;//100;
 unsigned int WITNESS_CACHE_SIZE = _COINBASE_MATURITY+10;
