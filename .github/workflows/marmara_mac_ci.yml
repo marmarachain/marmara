@@ -10,7 +10,7 @@ jobs:
 
   macos-build:
     name: MacOS Build
-    runs-on: macos-latest
+    runs-on: macos-latest-large
     
     steps:
       - uses: actions/checkout@v4
@@ -31,47 +31,49 @@ jobs:
       - name: Install deps (macOS)
         run: |
           brew update
-          brew upgrade || true
           brew tap discoteq/discoteq; brew install flock
           brew install autoconf autogen automake
-          brew install gcc@8
           brew install binutils
           brew install protobuf
           brew install coreutils
           brew install wget
           brew install python3
-          brew install gmp
-          
+
+      # https://www.jessesquires.com/blog/2020/01/06/selecting-an-xcode-version-on-github-ci/
+      # https://github.com/actions/runner-images/issues/2619 (bsdtar issues)
+      # flag for some CC tests transactions - so DO NOT USE THIS CI ARTIFACTS IN PRODUCTION!!!
       - name: Build (macOS)
         run: |
-          # flag for some CC tests transactions - so DO NOT USE THIS CI ARTIFACTS IN PRODUCTION!!!
-          export CPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/
           ./zcutil/build-mac-dtest.sh -j4
-          tar -czvf marmara-macos.tar.gz src/marmarad src/marmara-cli
-          
+          gtar -czvf marmara-macos.tar.gz src/marmarad src/marmara-cli src/wallet-utility src/komodo-tx
+        # env:
+        #   DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+
       - name: Upload marmara-macos.tar.gz as artifact
         uses: actions/upload-artifact@v4
         with:
           name: marmara-macos
-          path: ./marmara-macos.tar.gz
+          path: |
+            ./marmara-macos.tar.gz
 
-  # macos-test-dice-token-reards-faucet-cc:
+  # macos-test-dice-token-rewards-faucet-cc:
+  #    if: ${{ false }}
 
   #   name: Test (MacOS/Dice, Token, Faucet, Rewards)
   #   runs-on: macos-latest
   #   needs: macos-build
 
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v4
 
   #     - name: Install deps (Dice, Token, Faucet, Rewards CC)
   #       run: |
-  #         brew install curl
+  #         brew install python3 curl
   #         python3 -m pip install setuptools wheel
   #         python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
 
   #     - name: Download komodo-macos.tar.gz
-  #       uses: actions/download-artifact@v1
+  #       uses: actions/download-artifact@v4
   #       with:
   #         name: komodo-macos
 
@@ -150,11 +152,11 @@ jobs:
   #   needs: macos-build
 
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v4
 
   #     - name: Install deps (ChannelsCC)
   #       run: |
-  #         brew install curl
+  #         brew install python3 curl
   #         python3 -m pip install setuptools wheel
   #         python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
   #     - name: Download komodo-macos.tar.gz
@@ -183,11 +185,11 @@ jobs:
 
   #     - name: Install deps (HeirCC)
   #       run: |
-  #         brew install curl
+  #         brew install python3 curl
   #         python3 -m pip install setuptools wheel
-  #         python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
+  #         python3 -m pip install slick-bitcoinrpc pytest wget jsonschemaa
   #     - name: Download komodo-macos.tar.gz
-  #       uses: actions/download-artifact@v1
+  #       uses: actions/download-artifact@v4
   #       with:
   #         name: komodo-macos
 

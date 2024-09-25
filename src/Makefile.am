@@ -31,16 +31,17 @@ BITCOIN_INCLUDES += -I$(srcdir)/snark
 BITCOIN_INCLUDES += -I$(srcdir)/snark/libsnark
 BITCOIN_INCLUDES += -I$(srcdir)/univalue/include
 
-if TARGET_WINDOWS
-LIBBITCOIN_SERVER=libbitcoin_server.a -lcurl
-endif
-if TARGET_DARWIN
-LIBBITCOIN_SERVER=libbitcoin_server.a -lcurl
-endif
-if TARGET_LINUX
-LIBBITCOIN_SERVER=libbitcoin_server.a -lcurl
-endif
+# if TARGET_WINDOWS
+# LIBBITCOIN_SERVER=libbitcoin_server.a -lcurl
+# endif
+# if TARGET_DARWIN
+# LIBBITCOIN_SERVER=libbitcoin_server.a -lcurl
+# endif
+# if TARGET_LINUX
+# LIBBITCOIN_SERVER=libbitcoin_server.a -lcurl
+# endif
 
+LIBBITCOIN_SERVER=libbitcoin_server.a
 LIBBITCOIN_WALLET=libbitcoin_wallet.a
 LIBBITCOIN_COMMON=libbitcoin_common.a
 LIBBITCOIN_CLI=libbitcoin_cli.a
@@ -52,6 +53,7 @@ LIBSECP256K1=secp256k1/libsecp256k1.la
 LIBCRYPTOCONDITIONS=cryptoconditions/libcryptoconditions_core.la
 LIBSNARK=snark/libsnark.a
 LIBUNIVALUE=univalue/libunivalue.la
+LIBCC=libcc.a
 LIBZCASH=libzcash.a
 
 if ENABLE_ZMQ
@@ -95,13 +97,15 @@ $(LIBCRYPTOCONDITIONS): $(wildcard cryptoconditions/src/*) $(wildcard cryptocond
 # But to build the less dependent modules first, we manually select their order here:
 EXTRA_LIBRARIES += \
   $(LIBBITCOIN_CRYPTO) \
-  $(LIBVERUS_CRYPTO) \
-  $(LIBVERUS_PORTABLE_CRYPTO) \
+#  $(LIBVERUS_CRYPTO) \
+#  $(LIBVERUS_PORTABLE_CRYPTO) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_CLI) \
-  libzcash.a
+  $(LIBZCASH) \
+  $(LIBCC)
+
 if ENABLE_WALLET
 BITCOIN_INCLUDES += $(BDB_CPPFLAGS)
 EXTRA_LIBRARIES += $(LIBBITCOIN_WALLET)
@@ -183,9 +187,9 @@ BITCOIN_CORE_H = \
   consensus/validation.h \
   core_io.h \
   core_memusage.h \
-  crypto/haraka.h \
-  crypto/haraka_portable.h \
-  crypto/verus_hash.h \
+  crypto/haraka.h \           #does marmara use haraka check
+  crypto/haraka_portable.h \  # removed from komodo
+  crypto/verus_hash.h \         # removed from komodo, verus related
   deprecation.h \
   hash.h \
   httprpc.h \
@@ -290,17 +294,17 @@ libbitcoin_server_a_SOURCES = \
   cc/import.cpp \
   cc/importgateway.cpp \
   cc/CCassetsCore.cpp \
-  cc/old/CCassetsCore_v0.cpp \
-  cc/CCassetstx.cpp \
-  cc/old/CCassetstx_v0.cpp \
+  cc/old/CCassetsCore_v0.cpp \  #removed from komodo
+  cc/CCassetstx.cpp \           #removed from komodo
+  cc/old/CCassetstx_v0.cpp \        #removed from komodo
   cc/CCcustom.cpp \
   cc/CCtx.cpp \
   cc/CCutils.cpp \
-  cc/CCvalidation.cpp \
+  cc/CCvalidation.cpp \         #removed from komodo
   cc/CCtokens.cpp \
-  cc/old/CCtokens_v0.cpp \
+  cc/old/CCtokens_v0.cpp \      #removed from komodo
   cc/assets.cpp \
-  cc/old/assets_v0.cpp \
+  cc/old/assets_v0.cpp \        #removed from komodo
   cc/faucet.cpp \
   cc/rewards.cpp \
   cc/dice.cpp \
@@ -308,8 +312,8 @@ libbitcoin_server_a_SOURCES = \
   cc/fsm.cpp \
   cc/heir.cpp \
   cc/oracles.cpp \
-  cc/prices.cpp \
-  cc/pegs.cpp \
+  cc/prices.cpp \      #removed from komodo
+  cc/pegs.cpp \        #removed from komodo
   cc/marmara.cpp \
   cc/marmara_h0.cpp \
   cc/payments.cpp \
@@ -317,17 +321,17 @@ libbitcoin_server_a_SOURCES = \
   cc/channels.cpp \
   cc/auction.cpp \
   cc/betprotocol.cpp \
-  cc/pricesfeed.cpp \
-  cc/priceslibs/cjsonpointer.cpp \
-  cc/kogs.cpp \
+  cc/pricesfeed.cpp \           #removed from komodo
+  cc/priceslibs/cjsonpointer.cpp \            #removed from komodo
+  cc/kogs.cpp \                         #removed from komodo
   chain.cpp \
   checkpoints.cpp \
   crosschain.cpp \
-  crosschain_authority.cpp \
-  crypto/haraka.h \
-  crypto/haraka_portable.h \
-  crypto/verus_hash.h \
-  crypto/verus_hash.cpp \
+  crosschain_authority.cpp \        #removed from komodo
+  crypto/haraka.h \                #removed from komodo
+  crypto/haraka_portable.h \               #removed from komodo
+  crypto/verus_hash.h \            #removed from komodo
+  crypto/verus_hash.cpp \              #removed from komodo
   deprecation.cpp \
   httprpc.cpp \
   httpserver.cpp \
@@ -353,8 +357,8 @@ libbitcoin_server_a_SOURCES = \
   rpc/net.cpp \
   rpc/rawtransaction.cpp \
   rpc/server.cpp \
-  rpc/tokensrpc.cpp \
-  rpc/pricesrpc.cpp \
+  rpc/tokensrpc.cpp \              #removed from komodo
+  rpc/pricesrpc.cpp \                      #removed from komodo
   rpc/marmararpc.cpp \
   script/serverchecker.cpp \
   script/sigcache.cpp \
@@ -411,6 +415,11 @@ libbitcoin_wallet_a_SOURCES = \
   $(BITCOIN_CORE_H) \
   $(LIBZCASH_H)
 
+# a static library for cryptoconditions
+libcc_a_SOURCES = cc/cclib.cpp
+libcc_a_CXXFLAGS = -DBUILD_CUSTOMCC -I../secp256k1/include -I../depends/$(shell echo `../depends/config.guess`/include) -I./univalue/include -I./cryptoconditions/include -I./cryptoconditions/src -I./cryptoconditions/src/asn -I. -I./cc
+# libcc_a_LDFLAGS = -version-info 0:0:0
+
 # crypto primitives library
 crypto_libbitcoin_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES)
 crypto_libbitcoin_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -431,10 +440,10 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha256.h \
   crypto/sha512.cpp \
   crypto/sha512.h \
-  crypto/haraka.h \
-  crypto/haraka_portable.h \
-  crypto/verus_hash.h \
-  crypto/verus_hash.cpp
+  crypto/haraka.h \             # removed from komodo
+  crypto/haraka_portable.h \        # removed from komodo
+  crypto/verus_hash.h \             # removed from komodo
+  crypto/verus_hash.cpp             # removed from komodo
 
 if EXPERIMENTAL_ASM
   crypto_libbitcoin_crypto_a_SOURCES += crypto/sha256_sse4.cpp
@@ -480,10 +489,10 @@ libbitcoin_common_a_SOURCES = \
   consensus/upgrades.cpp \
   core_read.cpp \
   core_write.cpp \
-  crypto/haraka.h \
-  crypto/haraka_portable.h \
-  crypto/verus_hash.h \
-  crypto/verus_hash.cpp \
+  crypto/haraka.h \             # removed from komodo
+  crypto/haraka_portable.h \        # removed from komodo
+  crypto/verus_hash.h \             # removed from komodo
+  crypto/verus_hash.cpp \              # removed from komodo
   hash.cpp \
   importcoin.cpp \
   key.cpp \
@@ -506,7 +515,7 @@ libbitcoin_common_a_SOURCES = \
   script/standard.cpp \
   transaction_builder.cpp \
   cc/CCtokenutils.cpp \
-  cc/old/CCtokenutils_v0.cpp \
+  cc/old/CCtokenutils_v0.cpp \          # removed from komodo
   cc/CCutilbits.cpp \
   gmp_i64.c \
   $(BITCOIN_CORE_H) \
@@ -570,8 +579,8 @@ marmarad_LDADD = \
   $(LIBBITCOIN_ZMQ) \
   $(LIBBITCOIN_PROTON) \
   $(LIBBITCOIN_CRYPTO) \
-  $(LIBVERUS_CRYPTO) \
-  $(LIBVERUS_PORTABLE_CRYPTO) \
+  $(LIBVERUS_CRYPTO) \              #removed from komodo
+  $(LIBVERUS_PORTABLE_CRYPTO) \             #removed from komodo
   $(LIBZCASH) \
   $(LIBSNARK) \
   $(LIBLEVELDB) \
@@ -593,27 +602,25 @@ marmarad_LDADD += \
   $(ZMQ_LIBS) \
   $(PROTON_LIBS) \
   $(LIBBITCOIN_CRYPTO) \
-  $(LIBVERUS_CRYPTO) \
-  $(LIBVERUS_PORTABLE_CRYPTO) \
+  $(LIBVERUS_CRYPTO) \              #verus related, removed from komodo
+  $(LIBVERUS_PORTABLE_CRYPTO) \         #removed from komodo
   $(LIBZCASH_LIBS)
+  $(LIBCC) \
+  -lcurl
 
-if TARGET_DARWIN
-marmarad_LDADD += libcc.dylib $(LIBSECP256K1)
-endif
-if TARGET_WINDOWS
-marmarad_LDADD += libcc.dll $(LIBSECP256K1)
-endif
-if TARGET_LINUX
-marmarad_LDADD += libcc.so $(LIBSECP256K1)
-endif
+# https://github.com/marmarachain/marmara/pull/47#issuecomment-2363865476 commented out explicit reference to libcc.dll
+# if TARGET_DARWIN
+# marmarad_LDADD += libcc.dylib $(LIBSECP256K1)
+# endif
+# if TARGET_WINDOWS
+# marmarad_LDADD += libcc.dll $(LIBSECP256K1)
+# endif
+# if TARGET_LINUX
+# marmarad_LDADD += libcc.so $(LIBSECP256K1)
+# endif
 
 if ENABLE_PROTON
 marmarad_LDADD += $(LIBBITCOIN_PROTON) $(PROTON_LIBS)
-endif
-
-# [+] Decker: use static linking for libstdc++.6.dylib, libgomp.1.dylib, libgcc_s.1.dylib
-if TARGET_DARWIN
-marmarad_LDFLAGS += -static-libgcc
 endif
 
 # bitcoin-cli binary #
@@ -621,9 +628,7 @@ marmara_cli_SOURCES = bitcoin-cli.cpp
 marmara_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 marmara_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 marmara_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-if TARGET_DARWIN
-marmara_cli_LDFLAGS += -static-libgcc
-endif
+
 
 # wallet-utility binary #
 if ENABLE_WALLET
@@ -631,6 +636,10 @@ wallet_utility_SOURCES = wallet-utility.cpp
 wallet_utility_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 wallet_utility_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 wallet_utility_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+
+if TARGET_WINDOWS
+wallet_utility_SOURCES += wallet-utility-res.rc
+endif
 endif
 
 if TARGET_WINDOWS
@@ -647,8 +656,8 @@ marmara_cli_LDADD = \
 	$(EVENT_LIBS) \
 	$(LIBZCASH) \
 	$(LIBBITCOIN_CRYPTO) \
-  $(LIBVERUS_CRYPTO) \
-  $(LIBVERUS_PORTABLE_CRYPTO) \
+  $(LIBVERUS_CRYPTO) \                  # verus related, removed from komodo
+  $(LIBVERUS_PORTABLE_CRYPTO) \          # verus related, removed from komodo
 	$(LIBZCASH_LIBS)
 
 if ENABLE_WALLET
@@ -656,8 +665,8 @@ wallet_utility_LDADD = \
 	libbitcoin_wallet.a \
 	$(LIBBITCOIN_COMMON) \
 	$(LIBBITCOIN_CRYPTO) \
-  $(LIBVERUS_CRYPTO) \
-  $(LIBVERUS_PORTABLE_CRYPTO) \
+  $(LIBVERUS_CRYPTO) \          # verus related, removed from komodo
+  $(LIBVERUS_PORTABLE_CRYPTO) \          # verus related, removed from komodo
 	$(LIBSECP256K1) \
 	$(LIBBITCOIN_UTIL) \
 	$(BOOST_LIBS) \
@@ -688,8 +697,8 @@ komodo_tx_LDADD = \
   $(LIBZCASH) \
   $(LIBSNARK) \
   $(LIBBITCOIN_CRYPTO) \
-  $(LIBVERUS_CRYPTO) \
-  $(LIBVERUS_PORTABLE_CRYPTO) \
+  $(LIBVERUS_CRYPTO) \            # verus related, removed from komodo
+  $(LIBVERUS_PORTABLE_CRYPTO) \          # verus related, removed from komodo
   $(LIBZCASH_LIBS) \
   $(LIBCRYPTOCONDITIONS)
 
@@ -707,12 +716,12 @@ libzcash_a_SOURCES = \
 	zcash/prf.cpp \
 	zcash/util.cpp \
   zcash/zip32.cpp \
-	zcash/circuit/commitment.tcc \
-	zcash/circuit/gadget.tcc \
-	zcash/circuit/merkle.tcc \
-	zcash/circuit/note.tcc \
-	zcash/circuit/prfs.tcc \
-	zcash/circuit/utils.tcc
+	zcash/circuit/commitment.tcc \              #removed from komodo
+	zcash/circuit/gadget.tcc \                    #removed from komodo
+	zcash/circuit/merkle.tcc \                  #removed from komodo
+	zcash/circuit/note.tcc \                     #removed from komodo
+	zcash/circuit/prfs.tcc \                 #removed from komodo
+	zcash/circuit/utils.tcc                 #removed from komodo
 
 libzcash_a_CPPFLAGS = -DMULTICORE -fopenmp -fPIC -DBINARY_OUTPUT -DCURVE_ALT_BN128 -DBOOST_SPIRIT_THREADSAFE -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS $(HARDENED_CPPFLAGS) $(HARDENED_CXXFLAGS) $(HARDENED_LDFLAGS) -pipe $(SAN_LDFLAGS) -O1 -g -Wstack-protector $(SAN_CXXFLAGS) -fstack-protector-all -fPIE -fvisibility=hidden -DSTATIC $(BITCOIN_INCLUDES)
 
@@ -770,6 +779,12 @@ clean-local:
 	-$(MAKE) -C cryptoconditions clean
 	rm -f leveldb/*/*.gcno leveldb/helpers/memenv/*.gcno
 	-rm -f config.h
+	-$(RM) *.a
+	-$(RM) crypto/*.a
+	-$(RM) cryptoconditions/.libs/*.a
+
+clean-all: clean-local
+	-$(MAKE) -C univalue clean-all
 
 .rc.o:
 	@test -f $(WINDRES)
@@ -797,6 +812,6 @@ endif
 
 if ENABLE_TESTS
 include Makefile.ktest.include
-#include Makefile.test.include
-#include Makefile.gtest.include
+#include Makefile.test.include #bitcoin tests
+#include Makefile.gtest.include #zcash tests
 endif
