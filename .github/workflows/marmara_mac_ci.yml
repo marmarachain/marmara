@@ -187,7 +187,7 @@ jobs:
   #       run: |
   #         brew install python3 curl
   #         python3 -m pip install setuptools wheel
-  #         python3 -m pip install slick-bitcoinrpc pytest wget jsonschemaa
+  #         python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
   #     - name: Download komodo-macos.tar.gz
   #       uses: actions/download-artifact@v4
   #       with:
