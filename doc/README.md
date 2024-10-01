@@ -32,9 +32,9 @@ More details are available under http://marmara.io/
 
 ## Getting Started
 
-- To build Marmara from source, follow the [Marmara Credit Loops Build Instructions](/doc/marmara-build-from-source).
-- To install Marmara from pre-compiled binaries, follow the [Marmara Credit Loops Install Instructions](/doc/marmara-install-from-precompiled-binaries.md).
-- To get started with Marmara Credit Loops, follow the [Making Marmara Credit Loops](/doc/getting-started-with-marmara.md) guide.
+- To build Marmara from source, follow the [Marmara Credit Loops Build Instructions](/marmara-build-from-source.md).
+- To install Marmara from pre-compiled binaries, follow [Marmara Credit Loops Install Instructions](/marmara-install-from-precompiled-binaries.md).
+- To get started with Marmara Credit Loops, follow [Making Marmara Credit Loops](/getting-started-with-marmara.md) guide.
 
 
 ## Contact

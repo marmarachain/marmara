@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install deps (Linux)
 
@@ -40,7 +40,7 @@ jobs:
           CONFIGURE_FLAGS='CPPFLAGS=-DTESTMODE' ./zcutil/build.sh -j$(nproc)
           tar -czvf marmara-linux.tar.gz src/marmarad src/marmara-cli
       - name: Upload marmara-linux.tar.gz as artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: marmara-linux
           path: ./marmara-linux.tar.gz
@@ -88,7 +88,7 @@ jobs:
     needs: linux-build
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install deps (OraclesCC)
         run: |
@@ -104,7 +104,7 @@ jobs:
           python3 -m pip install setuptools wheel
           python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
       - name: Download marmara-linux.tar.gz
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: marmara-linux
 
@@ -124,7 +124,7 @@ jobs:
     needs: linux-build
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install deps (BasicRPC)
         run: |
@@ -140,7 +140,7 @@ jobs:
           python3 -m pip install setuptools wheel
           python3 -m pip install slick-bitcoinrpc pytest wget jsonschema
       - name: Download marmara-linux.tar.gz
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: marmara-linux
 
