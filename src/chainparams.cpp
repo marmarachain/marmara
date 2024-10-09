@@ -185,6 +185,7 @@ public:
         // vSeeds.push_back(CDNSSeedData("komodoseeds.com", "kmd.komodoseeds.com")); // Static contolled seeds list (Kolo)
         // vSeeds.push_back(CDNSSeedData("komodoseeds.com", "dynamic.komodoseeds.com")); // Active seeds crawler (Kolo)
         // TODO: we need more seed crawlers from other community members
+        vSeeds.push_back(CDNSSeedData("seeds.marmara.io", "mcl.komodoseeds.org"));
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,60);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,85);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,188);
