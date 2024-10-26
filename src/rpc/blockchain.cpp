@@ -1433,10 +1433,6 @@ UniValue getblockchaininfo(const UniValue& params, bool fHelp, const CPubKey& my
     obj.push_back(Pair("difficulty", (double)GetNetworkDifficulty()));
     obj.push_back(Pair("verificationprogress", progress));
     obj.push_back(Pair("chainwork", chainActive.LastTip()->chainPower.chainWork.GetHex()));
-    if (ASSETCHAINS_LWMAPOS)
-    {
-        obj.push_back(Pair("chainstake", chainActive.LastTip()->chainPower.chainStake.GetHex()));
-    }
     obj.push_back(Pair("pruned", fPruneMode));
     CBlockIndex* tip = chainActive.LastTip();
     if ( KOMODO_NSPV_SUPERLITE == 0 )

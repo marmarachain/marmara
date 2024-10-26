@@ -371,25 +371,7 @@ UniValue setgenerate(const UniValue& params, bool fHelp, const CPubKey& mypk)
         //if (nGenProcLimit == 0)
         //    fGenerate = false;
     }
-    if ( ASSETCHAINS_LWMAPOS != 0 )
-    {
-        if (fGenerate && !nGenProcLimit)
-        {
-
-            fGenerate = GetBoolArg("-gen", false);
-            KOMODO_MININGTHREADS = nGenProcLimit;
-        }
-        else if (!fGenerate)
-        {
-
-            KOMODO_MININGTHREADS = 0;
-        }
-        else KOMODO_MININGTHREADS = (int32_t)nGenProcLimit;
-    }
-    else
-    {
-        KOMODO_MININGTHREADS = (int32_t)nGenProcLimit;
-    }
+    KOMODO_MININGTHREADS = (int32_t)nGenProcLimit;
 
     mapArgs["-gen"] = (fGenerate ? "1" : "0");
     mapArgs ["-genproclimit"] = itostr(KOMODO_MININGTHREADS);

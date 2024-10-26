@@ -37,7 +37,6 @@ class CChainPower;
 
 static const int SPROUT_VALUE_VERSION = 1001400;
 static const int SAPLING_VALUE_VERSION = 1010100;
-extern int32_t ASSETCHAINS_LWMAPOS;
 extern char ASSETCHAINS_SYMBOL[65];
 extern uint64_t ASSETCHAINS_NOTARY_PAY[];
 extern int32_t ASSETCHAINS_STAKED;
@@ -474,18 +473,6 @@ public:
     //! Efficiently find an ancestor of this block.
     CBlockIndex* GetAncestor(int height);
     const CBlockIndex* GetAncestor(int height) const;
-
-    int32_t GetVerusPOSTarget() const
-    {
-        return GetBlockHeader().GetVerusPOSTarget();
-    }
-
-    bool IsVerusPOSBlock() const
-    {
-        if ( ASSETCHAINS_LWMAPOS != 0 )
-            return GetBlockHeader().IsVerusPOSBlock();
-        else return(0);
-    }
 };
 
 /** Used to marshal pointers into hashes for db storage. */
