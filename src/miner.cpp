@@ -707,8 +707,6 @@ CBlockTemplate* CreateNewBlock(CPubKey _pk,const CScript& _scriptPubKeyIn, int32
                     }
                 }
 
-            }
-
             if ( siglen > 0 )
             {
                 CAmount txfees;

@@ -185,7 +185,7 @@ UniValue getgenerate(const UniValue& params, bool fHelp, const CPubKey& mypk)
 
     LOCK(cs_main);
     UniValue obj(UniValue::VOBJ);
-
+    bool staking =false;
     if ( ASSETCHAINS_STAKED != 0 && GetBoolArg("-gen", false) && GetBoolArg("-genproclimit", -1) == 0 )
         staking = true;
     obj.push_back(Pair("staking",          staking));
@@ -354,7 +354,7 @@ UniValue setgenerate(const UniValue& params, bool fHelp, const CPubKey& mypk)
             throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Wallet disabled and -mineraddress not set");
         }
 #else
-        throw JSONRPCError(RPC_METHOD_NOT_FOUND, "komodod compiled without wallet and -mineraddress not set");
+        throw JSONRPCError(RPC_METHOD_NOT_FOUND, "marmarad compiled without wallet and -mineraddress not set");
 #endif
     }
     if (Params().MineBlocksOnDemand())
@@ -482,7 +482,7 @@ UniValue getmininginfo(const UniValue& params, bool fHelp, const CPubKey& mypk)
     obj.push_back(Pair("testnet",          Params().TestnetToBeDeprecatedFieldRPC()));
     obj.push_back(Pair("chain",            Params().NetworkIDString()));
 #ifdef ENABLE_MINING
-
+    bool staking = false;
     if ( ASSETCHAINS_STAKED != 0 && GetBoolArg("-gen", false) && GetBoolArg("-genproclimit", -1) == 0 )
         staking = true;
     obj.push_back(Pair("staking",          staking));
