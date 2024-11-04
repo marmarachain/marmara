@@ -3328,7 +3328,7 @@ template <class T>
 static void EnumLockedInLoop(T func, const CPubKey &pk)
 {
     char markeraddr[KOMODO_ADDRESS_BUFSIZE];
-    std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > markerOutputs;
+    std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> markerOutputs;
 
     struct CCcontract_info *cp, C;
     cp = CCinit(&C, EVAL_MARMARA);
@@ -3338,92 +3338,92 @@ static void EnumLockedInLoop(T func, const CPubKey &pk)
     GetCCaddress(cp, markeraddr, Marmarapk);
     SetCCunspents(markerOutputs, markeraddr, true);
 
-    // enum all createtxids:
     LOGSTREAMFN("marmara", CCLOG_DEBUG3, stream  << "checking markeraddr=" << markeraddr << std::endl);
-    for (std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> >::const_iterator it = markerOutputs.begin(); it != markerOutputs.end(); it++)
+
+    // Collect all unique loopaddrs
+    std::set<std::string> uniqueLoopAddrs;
+    for (const auto& markerOutput : markerOutputs)
     {
-        CTransaction isssuancetx;
+        CTransaction issuancetx;
         uint256 hashBlock;
-        uint256 marker_txid = it->first.txhash;
-        int32_t marker_nvout = (int32_t)it->first.index;
-        CAmount marker_amount = it->second.satoshis;
+        uint256 marker_txid = markerOutput.first.txhash;
+        int32_t marker_nvout = (int32_t)markerOutput.first.index;
+        CAmount marker_amount = markerOutput.second.satoshis;
 
         LOGSTREAMFN("marmara", CCLOG_DEBUG3, stream  << "checking tx on markeraddr txid=" << marker_txid.GetHex() << " vout=" << marker_nvout << std::endl);
         if (marker_nvout == MARMARA_LOOP_MARKER_VOUT && marker_amount == MARMARA_LOOP_MARKER_AMOUNT)
         {
-            if (myGetTransaction(marker_txid, isssuancetx, hashBlock) /*&& !hashBlock.IsNull()*/)
+            if (myGetTransaction(marker_txid, issuancetx, hashBlock))
             {
-                if (!isssuancetx.IsCoinBase() && isssuancetx.vout.size() > 2 && isssuancetx.vout.back().nValue == 0 /*has opret*/)
+                if (!issuancetx.IsCoinBase() && issuancetx.vout.size() > 2 && issuancetx.vout.back().nValue == 0 /*has opret*/)
                 {
                     struct SMarmaraCreditLoopOpret loopData;
                     // get createtxid from the issuance tx
-                    if (MarmaraDecodeLoopOpret(isssuancetx.vout.back().scriptPubKey, loopData, MARMARA_OPRET_VERSION_ANY) == MARMARA_ISSUE)  // allow both versions
+                    if (MarmaraDecodeLoopOpret(issuancetx.vout.back().scriptPubKey, loopData, MARMARA_OPRET_VERSION_ANY) == MARMARA_ISSUE)  // allow both versions
                     {
                         char loopaddr[KOMODO_ADDRESS_BUFSIZE];
-                        std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > loopOutputs;
                         CPubKey createtxidPk = CCtxidaddr_tweak(NULL, loopData.createtxid);
 
                         // enum unspents in the loop
                         GetCCaddress1of2(cp, loopaddr, Marmarapk, createtxidPk);
-                        SetCCunspents(loopOutputs, loopaddr, true);
+                        uniqueLoopAddrs.insert(loopaddr);
+                     }
+                }
+            }
+        }
+    }
 
-                        // enum all locked-in-loop addresses:
-                        LOGSTREAMFN("marmara", CCLOG_DEBUG3, stream << "checking on loopaddr=" << loopaddr << std::endl);
-                        for (std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> >::const_iterator it = loopOutputs.begin(); it != loopOutputs.end(); it++)
+    // Batch retrieve unspent outputs for all loopaddrs
+    std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> allLoopOutputs;
+    for (const auto& loopaddr : uniqueLoopAddrs)
+    {
+        std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue>> loopOutputs;
+        SetCCunspents(loopOutputs, const_cast<char*>(loopaddr.c_str()), true);
+        allLoopOutputs.insert(allLoopOutputs.end(), loopOutputs.begin(), loopOutputs.end());
+    }
+
+    // Process all unspent outputs
+    for (const auto& loopOutput : allLoopOutputs)
+    {
+        CTransaction loopTx;
+        uint256 hashBlock;
+        CBlockIndex *pindex;
+        uint256 txid = loopOutput.first.txhash;
+        int32_t nvout = (int32_t)loopOutput.first.index;
+
+        LOGSTREAMFN("marmara", CCLOG_DEBUG3, stream << "checking tx on loopaddr txid=" << txid.GetHex() << " vout=" << nvout << std::endl);
+
+        if (myGetTransaction(txid, loopTx, hashBlock) && (pindex = komodo_getblockindex(hashBlock)) != nullptr && !myIsutxo_spentinmempool(ignoretxid, ignorevin, txid, nvout))
+        {
+            /* lock-in-loop cant be mined */                   /* now it could be cc opret, not necessary OP_RETURN vout in the back */
+            if (!loopTx.IsCoinBase() && loopTx.vout.size() > 0 /* && looptx.vout.back().nValue == 0 */)
+            {
+                char utxoaddr[KOMODO_ADDRESS_BUFSIZE] = "";
+
+                Getscriptaddress(utxoaddr, loopTx.vout[nvout].scriptPubKey);
+                // NOTE: This is checking if the real spk address matches the index address
+                // because other keys from the vout.spk could be used in the addressindex)
+                // spk structure (keys): hashed-cc, pubkey, ccopret
+                // For the marmara branch I disabled getting other keys except the first in ExtractDestination but this is debatable
+                if (uniqueLoopAddrs.find(utxoaddr) != uniqueLoopAddrs.end())
+                {
+                    CScript opret;
+                    CPubKey pk_in_opret;
+
+                    // get pk from cc opret or last vout opret
+                    // use pk only from cc opret (which marks vout with owner), do not use the last vout opret if no cc opret somehow
+                    CMarmaraLockInLoopOpretChecker lockinloopChecker(CHECK_ONLY_CCOPRET, MARMARA_OPRET_VERSION_DEFAULT); // loop vouts have only ver 1
+                    if (get_either_opret(&lockinloopChecker, loopTx, nvout, opret, pk_in_opret))
+                    {
+                        if (!pk.IsValid() || pk == pk_in_opret)  // check pk in opret
                         {
-                            CTransaction looptx;
-                            uint256 hashBlock;
-                            CBlockIndex *pindex;
-                            uint256 txid = it->first.txhash;
-                            int32_t nvout = (int32_t)it->first.index;
-
-                            LOGSTREAMFN("marmara", CCLOG_DEBUG3, stream << "checking tx on loopaddr txid=" << txid.GetHex() << " vout=" << nvout << std::endl);
-
-                            if (myGetTransaction(txid, looptx, hashBlock) && (pindex = komodo_getblockindex(hashBlock)) != 0 && !myIsutxo_spentinmempool(ignoretxid, ignorevin, txid, nvout))  
-                            {
-                                /* lock-in-loop cant be mined */                   /* now it could be cc opret, not necessary OP_RETURN vout in the back */
-                                if (!looptx.IsCoinBase() && looptx.vout.size() > 0 /* && looptx.vout.back().nValue == 0 */)
-                                {
-                                    char utxoaddr[KOMODO_ADDRESS_BUFSIZE] = "";
-
-                                    Getscriptaddress(utxoaddr, looptx.vout[nvout].scriptPubKey);
-
-                                    // NOTE: This is checking if the real spk address matches the index address 
-                                    // because other keys from the vout.spk could be used in the addressindex)
-                                    // spk structure (keys): hashed-cc, pubkey, ccopret
-                                    // For the marmara branch I disabled getting other keys except the first in ExtractDestination but this is debatable
-                                    if (strcmp(loopaddr, utxoaddr) == 0)  
-                                    {
-                                        CScript opret;
-                                        CPubKey pk_in_opret;
-
-                                        // get pk from cc opret or last vout opret
-                                        // use pk only from cc opret (which marks vout with owner), do not use the last vout opret if no cc opret somehow
-                                        CMarmaraLockInLoopOpretChecker lockinloopChecker(CHECK_ONLY_CCOPRET, MARMARA_OPRET_VERSION_DEFAULT);  // loop vouts have only ver 1
-                                        if (get_either_opret(&lockinloopChecker, looptx, nvout, opret, pk_in_opret))
-                                        {
-                                            if (!pk.IsValid() || pk == pk_in_opret)   // check pk in opret
-                                            {
-                                                // call callback func:
-                                                func(loopaddr, looptx, nvout, pindex);
-                                                LOGSTREAMFN("marmara", CCLOG_DEBUG3, stream << "found my lock-in-loop 1of2 addr txid=" << txid.GetHex() << " vout=" << nvout << std::endl);
-                                            }
-                                            else
-                                                LOGSTREAMFN("marmara", CCLOG_DEBUG2, stream << "skipped lock-in-loop 1of2 addr txid=" << txid.GetHex() << " vout=" << nvout << " does not match the pk" << std::endl);
-                                        }
-                                        else
-                                            LOGSTREAMFN("marmara", CCLOG_ERROR, stream << "skipped lock-in-loop 1of2 addr txid=" << txid.GetHex() << " vout=" << nvout << " can't decode opret" << std::endl);
-                                    }
-                                    else
-                                        LOGSTREAMFN("marmara", CCLOG_ERROR, stream << "skipped lock-in-loop 1of2 addr txid=" << txid.GetHex() << " vout=" << nvout << " utxo addr and address index not matched" << std::endl);
-                                }
-                            }
+                            // call callback func:
+                            func(utxoaddr, loopTx, nvout, pindex);
+                            LOGSTREAMFN("marmara", CCLOG_DEBUG3, stream << "found my lock-in-loop 1of2 addr txid=" << txid.GetHex() << " vout=" << nvout << std::endl);
                         }
                     }
                 }
             }
-            else
-                LOGSTREAMFN("marmara", CCLOG_ERROR, stream << "error getting issuance tx=" << marker_txid.GetHex() << std::endl);
         }
     }
 }
