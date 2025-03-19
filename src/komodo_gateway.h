@@ -2724,7 +2724,7 @@ void komodo_createnodetransactions()
     CBlockIndex *pIndexTip = chainActive.LastTip();
     int32_t nHeight = pIndexTip ? pIndexTip->GetHeight() : 0;
 
-    if(ASSETCHAINS_MARMARA != 0 && GetBoolArg("-ac_autosettle", false))   
+    if(ASSETCHAINS_MARMARA != 0 && GetBoolArg("-ac_autosettle", true))   
     {
         MarmaraRunAutoSettlement(nHeight, minersTransactions);        // run Marmara autosettlement, returns settlement transactions
     }
