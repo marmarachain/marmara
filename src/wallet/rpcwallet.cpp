@@ -61,7 +61,6 @@
 
 #include "main.h"
 #include "Gulden/auto_checkpoints.h"
-#include "rpc/rawtransaction.h"
 #include "komodo_defs.h"
 #include <string.h>
 
@@ -1929,6 +1928,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
                 if (fLong)
                     WalletTxToJSON(wtx, entry);
                 entry.push_back(Pair("size", static_cast<uint64_t>(GetSerializeSize(static_cast<CTransaction>(wtx), SER_NETWORK, PROTOCOL_VERSION))));
+                entry.push_back(Pair("secured_by_checkpoint", securedTransaction ? "yes" : "no"));
                 ret.push_back(entry);
             }
         }

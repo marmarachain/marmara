@@ -23,6 +23,7 @@
 #include "chain.h"
 #include "chainparams.h"
 #include "checkpoints.h"
+#include "Gulden/auto_checkpoints.h"
 #include "crosschain.h"
 #include "base58.h"
 #include "consensus/validation.h"
@@ -1438,6 +1439,22 @@ UniValue getblockchaininfo(const UniValue& params, bool fHelp, const CPubKey& my
         obj.push_back(Pair("chainstake", chainActive.LastTip()->chainPower.chainStake.GetHex()));
     }
     obj.push_back(Pair("pruned", fPruneMode));
+    
+    int nHeight = chainActive.Height();
+    int64_t timestamp = komodo_heightstamp(nHeight);
+    {
+        LOCK(Checkpoints::cs_hashSyncCheckpoint);
+        if (Checkpoints::IsSyncCheckpointUpgradeActive(nHeight, timestamp)) {
+            CBlockIndex *psyncCheckpoint = Checkpoints::GetLastSyncCheckpoint();
+            UniValue blockinfo(UniValue::VOBJ);
+            if (psyncCheckpoint) {
+                blockinfo.push_back(Pair("height", psyncCheckpoint->GetHeight()));
+                blockinfo.push_back(Pair("blockHash", psyncCheckpoint->phashBlock ? (*psyncCheckpoint->phashBlock).GetHex() : uint256().GetHex()));
+            }
+            obj.push_back(Pair("syncCheckpoint", blockinfo));
+        }
+    }
+
     CBlockIndex* tip = chainActive.LastTip();
     if ( KOMODO_NSPV_SUPERLITE == 0 )
     {
