@@ -41,7 +41,7 @@ namespace Checkpoints
             testnet_params = boost::none;
 
             asset_chains = {
-                { "MCL", { nSyncChkPointTimestamp, "03fdc6ca526c0cfaed2211d03dc2ea9c083aea127c7769d97dc92fed2085803ce3" }}
+                { "MCL", { nSyncChkPointTimestamp, "02c31f5dafeb638eaf394d854a2fda6a177528ad156dd6e363aa49675250f18d9d" }}
             };
         }
 
