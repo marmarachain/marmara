@@ -1506,11 +1506,11 @@ UniValue getblockchaininfo(const UniValue& params, bool fHelp, const CPubKey& my
 
     // sync checkpoint and dpow status
     UniValue syncCheckpoint(UniValue::VOBJ);
-    bool isSunsettingActive = IsSunsettingActive(tip->nHeight, tip->GetBlockTime()); // dPoW is active when !isSunsettingActive
+    bool isSunsettingActive = IsSunsettingActive(tip->GetHeight(), tip->GetBlockTime()); // dPoW is active when !isSunsettingActive
     syncCheckpoint.push_back(Pair("dpow_active", !isSunsettingActive ? "true" : "false"));
 
     Checkpoints::CSyncChkParams syncChkParams;
-    bool isSyncCheckpointActive = Checkpoints::IsSyncCheckpointUpgradeActive(syncChkParams, tip->nHeight, tip->GetBlockTime());
+    bool isSyncCheckpointActive = Checkpoints::IsSyncCheckpointUpgradeActive(syncChkParams, tip->GetHeight(), tip->GetBlockTime());
     syncCheckpoint.push_back(Pair("sync_checkpoint_active", isSyncCheckpointActive));
     bool fValidParams = (!syncChkParams.masterPubKey.empty() && syncChkParams.activeAt != -1);
     syncCheckpoint.push_back(Pair("sync_checkpoint_expected", fValidParams));
