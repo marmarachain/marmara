@@ -1385,6 +1385,10 @@ UniValue getblockchaininfo(const UniValue& params, bool fHelp, const CPubKey& my
             "  \"verificationprogress\": xxxx, (numeric) estimate of verification progress [0..1]\n"
             "  \"chainwork\": \"xxxx\"     (string) total amount of work in active chain, in hexadecimal\n"
             "  \"commitments\": xxxxxx,    (numeric) the current number of note commitments in the commitment tree\n"
+            "  \"syncCheckpoint\": {\n"
+            "     \"height\": xxxx,        (numeric) latest sync checkpoint height\n"
+            "     \"blockHash\": \"...\"   (string) latest sync checkpoint block hash\n"
+            "  },\n"
             "  \"softforks\": [            (array) status of softforks in progress\n"
             "     {\n"
             "        \"id\": \"xxxx\",        (string) name of softfork\n"
@@ -1410,7 +1414,7 @@ UniValue getblockchaininfo(const UniValue& params, bool fHelp, const CPubKey& my
             "     \"chaintip\": \"xxxxxxxx\",   (string) branch ID used to validate the current chain tip\n"
             "     \"nextblock\": \"xxxxxxxx\"   (string) branch ID that the next block will be validated under\n"
             "  },\n"
-            "  \"synccheckpoint\": {                      (object) sync checkpoint and dPoW status\n"
+            "  \"syncCheckpointUpgrade\": {               (object) sync checkpoint and dPoW status\n"
             "     \"dpow_active\": xx,                    (boolean) whether dPoW (delayed Proof of Work) is active\n"
             "     \"sync_checkpoint_active\": xx,         (boolean) whether sync checkpoint upgrade is active\n"
             "     \"sync_checkpoint_expected\": xx,       (boolean) whether sync checkpoint upgrade is expected\n"
@@ -1505,34 +1509,34 @@ UniValue getblockchaininfo(const UniValue& params, bool fHelp, const CPubKey& my
     }
 
     // sync checkpoint and dpow status
-    UniValue syncCheckpoint(UniValue::VOBJ);
+    UniValue syncCheckpointUpgrade(UniValue::VOBJ);
     bool isSunsettingActive = IsSunsettingActive(tip->GetHeight(), tip->GetBlockTime()); // dPoW is active when !isSunsettingActive
-    syncCheckpoint.push_back(Pair("dpow_active", !isSunsettingActive ? "true" : "false"));
+    syncCheckpointUpgrade.push_back(Pair("dpow_active", !isSunsettingActive ? "true" : "false"));
 
     Checkpoints::CSyncChkParams syncChkParams;
     bool isSyncCheckpointActive = Checkpoints::IsSyncCheckpointUpgradeActive(syncChkParams, tip->GetHeight(), tip->GetBlockTime());
-    syncCheckpoint.push_back(Pair("sync_checkpoint_active", isSyncCheckpointActive));
+    syncCheckpointUpgrade.push_back(Pair("sync_checkpoint_active", isSyncCheckpointActive));
     bool fValidParams = (!syncChkParams.masterPubKey.empty() && syncChkParams.activeAt != -1);
-    syncCheckpoint.push_back(Pair("sync_checkpoint_expected", fValidParams));
+    syncCheckpointUpgrade.push_back(Pair("sync_checkpoint_expected", fValidParams));
 
     if (fValidParams) {
         if (syncChkParams.activeAt < LOCKTIME_THRESHOLD) {
-            syncCheckpoint.push_back(Pair("activation_height", syncChkParams.activeAt));
+            syncCheckpointUpgrade.push_back(Pair("activation_height", syncChkParams.activeAt));
         } else {
-            syncCheckpoint.push_back(Pair("activation_timestamp", syncChkParams.activeAt));
-            syncCheckpoint.push_back(Pair("activation_timestamp_utc", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", syncChkParams.activeAt)));
+            syncCheckpointUpgrade.push_back(Pair("activation_timestamp", syncChkParams.activeAt));
+            syncCheckpointUpgrade.push_back(Pair("activation_timestamp_utc", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", syncChkParams.activeAt)));
         }
-        syncCheckpoint.push_back(Pair("masterpubKey", syncChkParams.masterPubKey));
+        syncCheckpointUpgrade.push_back(Pair("masterpubKey", syncChkParams.masterPubKey));
 
         if (isSyncCheckpointActive) {
             if (TryInitSyncCheckpoint(syncChkParams)) {
-                syncCheckpoint.push_back(Pair("init", true));
+                syncCheckpointUpgrade.push_back(Pair("init", true));
             } else {
-                syncCheckpoint.push_back(Pair("init", false));
+                syncCheckpointUpgrade.push_back(Pair("init", false));
             }
         }
     }
-    obj.push_back(Pair("synccheckpoint", syncCheckpoint));
+    obj.push_back(Pair("syncCheckpointUpgrade", syncCheckpointUpgrade));
 
     return obj;
 }
