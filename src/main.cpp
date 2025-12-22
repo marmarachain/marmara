@@ -8774,3 +8774,13 @@ CMutableTransaction CreateNewContextualCMutableTransaction(const Consensus::Para
     }
     return mtx;
 }
+
+bool IsSunsettingActive(int nHeight, int64_t timestamp) {
+    AssertLockHeld(cs_main);
+
+    if (ASSETCHAINS_SYMBOL[0] == '\0' ) {
+        return nHeight > nSunsettingHeight;
+    } else {
+        return timestamp > nSunsettingTimestamp;
+    }
+}

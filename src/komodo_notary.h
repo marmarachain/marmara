@@ -16,6 +16,7 @@
 
 #include "komodo_defs.h"
 #include "komodo_cJSON.h"
+#include "main.h"
 
 #include "notaries_staked.h"
 
@@ -366,7 +367,10 @@ int32_t komodo_dpowconfs(int32_t txheight,int32_t numconfs)
 {
     static int32_t hadnotarization;
     char symbol[KOMODO_ASSETCHAIN_MAXLEN],dest[KOMODO_ASSETCHAIN_MAXLEN]; struct komodo_state *sp;
-    if ( KOMODO_DPOWCONFS != 0 && txheight > 0 && numconfs > 0 && (sp= komodo_stateptr(symbol,dest)) != 0 )
+
+    int nHeightTip = chainActive.Height();
+    int64_t timestamp = komodo_heightstamp(nHeightTip);
+    if ( !IsSunsettingActive(nHeightTip, timestamp) &&  KOMODO_DPOWCONFS != 0 && txheight > 0 && numconfs > 0 && (sp= komodo_stateptr(symbol,dest)) != 0 )
     {
         if ( sp->NOTARIZED_HEIGHT > 0 )
         {
