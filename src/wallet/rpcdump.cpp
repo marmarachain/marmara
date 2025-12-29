@@ -28,7 +28,8 @@
 #include "util.h"
 #include "utiltime.h"
 #include "wallet.h"
-
+#include "komodo_nSPV_defs.h"
+#include "Gulden/auto_checkpoints.h"
 #include <fstream>
 #include <stdint.h>
 
@@ -239,6 +240,10 @@ UniValue importprivkey(const UniValue& params, bool fHelp, const CPubKey& mypk)
         if (fRescan) {
             pwalletMain->ScanForWalletTransactions(chainActive[height], true);
         }
+    }
+
+    if (!Checkpoints::IsMasterKeySet()) {
+        Checkpoints::TryInitMasterKey();
     }
 
     return EncodeDestination(vchAddress);

@@ -815,4 +815,3 @@ bool CBlockTreeDB::ReadAllUnspentIndex(std::vector<std::pair<CAddressUnspentKey,
     return true;
 }
 
-
