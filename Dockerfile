@@ -1,28 +1,48 @@
-FROM ubuntu:16.04
-MAINTAINER Mihail Fedorov <kolo@komodoplatform.com>
+FROM ubuntu:20.04 AS builder
+LABEL maintainer="abdulkadir@marmara.io"
+WORKDIR /marmarachain
 
-RUN apt-get -y update && \
-    apt-get -y upgrade && \
-    apt-get -y install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev \
-    unzip python zlib1g-dev wget bsdmainutils automake libssl-dev libprotobuf-dev \
-    protobuf-compiler libqrencode-dev libdb++-dev software-properties-common libcurl4-openssl-dev curl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ARG BUILD_PACKAGES="libevent-dev libgmp-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev curl \
+        libboost-test-dev libboost-thread-dev build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev python3-zmq \
+        zlib1g-dev wget bsdmainutils automake cmake clang libsodium-dev libcurl4-gnutls-dev libssl-dev git unzip python jq"
+ARG DEBIAN_FRONTEND=noninteractive
+# Install dependencies
+RUN apt update && apt install -y $BUILD_PACKAGES
+# Add files to the Docker image
+COPY . /marmarachain/marmara
+# Build the Marmarachain
+RUN marmara/zcutil/build.sh -j$(( $(nproc) - 1 ))
 
-ADD ./ /komodo
-ENV HOME /komodo
-WORKDIR /komodo
+FROM ubuntu:20.04
+LABEL maintainer="abdulkadir@marmara.io"
+# Install runtime dependencies
+RUN apt update && apt install -y \
+    nano htop curl wget \
+    libstdc++6 \
+    libcurl4 \
+    libssl1.1 \
+    libboost-system1.71.0 \
+    libboost-filesystem1.71.0 \
+    libboost-program-options1.71.0 \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
 
-# configure || true or it WILL halt
-RUN cd /komodo && \
-    ./autogen.sh && \
-    ./configure --with-incompatible-bdb --with-gui || true && \
-    ./zcutil/build.sh -j$(nproc)
+# Copy the built binaries from the builder stage
+COPY --from=builder /marmarachain/marmara/src/marmarad /usr/local/bin/marmarad
+COPY --from=builder /marmarachain/marmara/src/marmara-cli /usr/local/bin/marmara-cli
+COPY --from=builder /marmarachain/marmara/zcutil/fetch-params.sh /home/marmarachain/fetch-params.sh
+COPY zcutil/docker-entrypoint.sh /usr/local/bin/entrypoint
 
-# Unknown stuff goes here
+ARG GROUP_ID=1000
+ARG USER_ID=1000  
 
-RUN ln -sf /komodo/src/komodod /usr/bin/komodod && \
-    ln -sf /komodo/zcutil/docker-entrypoint.sh /usr/bin/entrypoint && \
-    ln -sf /komodo/zcutil/docker-komodo-cli.sh /usr/bin/komodo-cli
+# Create user and set ownership
+RUN addgroup --gid ${GROUP_ID} usergroup && \
+    adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} marmarachain && \
+    chown -R marmarachain:usergroup /home/marmarachain
 
-CMD ["entrypoint"]
+WORKDIR /home/marmarachain
+USER marmarachain
+
+ENTRYPOINT ["entrypoint"]
+CMD [ "marmarad" ]
