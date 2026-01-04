@@ -98,7 +98,7 @@ static const int32_t KMD_SEASON_HEIGHTS[NUM_KMD_SEASONS] = {
 // height HF (for build)
 const int32_t nSunsettingHeight = 2081563; // not used
 // Asset chain sunsetting timestamp
-const uint32_t nSunsettingTimestamp = 1767528000; // 04 Jan 2026 12:00 UTC
+const uint32_t nSunsettingTimestamp = 1768147200; // 11 Jan 2026 16:00 UTC
 
 // MCL height HF sample
 const int32_t nSyncChkPointHeight = nSunsettingHeight; // not used
