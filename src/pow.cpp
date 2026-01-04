@@ -37,6 +37,7 @@
 #endif // ENABLE_RUST
 uint32_t komodo_chainactive_timestamp();
 
+#include "main.h"
 #include "komodo_defs.h"
 
 unsigned int lwmaGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params);
@@ -827,7 +828,7 @@ bool CheckProofOfWork(const CBlockHeader &blkHeader, uint8_t *pubkey33, int32_t 
         height = komodo_currentheight() + 1;
         //fprintf(stderr,"set height to %d\n",height);
     }
-    if ( height > 34000 && ASSETCHAINS_SYMBOL[0] == 0 ) // 0 -> non-special notary
+    if (!IsSunsettingActive(height, tiptime) && height > 34000 && ASSETCHAINS_SYMBOL[0] == 0 ) // 0 -> non-special notary
     {
         special = komodo_chosennotary(&notaryid,height,pubkey33,tiptime);
         for (i=0; i<33; i++)
@@ -860,6 +861,7 @@ bool CheckProofOfWork(const CBlockHeader &blkHeader, uint8_t *pubkey33, int32_t 
             }
             if ( (flag != 0 || special2 > 0) && special2 != -2 )
             {
+                LogPrint("dpow", "%s bnTarget set to KOMODO_MINDIFF_NBITS flag=%d special2=%d notaryid=%d\n", __func__, flag, special2, notaryid);
                 bnTarget.SetCompact(KOMODO_MINDIFF_NBITS,&fNegative,&fOverflow);
                 /*
                 const void* pblock = &blkHeader;

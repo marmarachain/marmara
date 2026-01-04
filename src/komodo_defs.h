@@ -95,6 +95,16 @@ static const int32_t KMD_SEASON_HEIGHTS[NUM_KMD_SEASONS] = {
     nS8HardforkHeight,
     8113400};
 
+// height HF (for build)
+const int32_t nSunsettingHeight = 2081563; // not used
+// Asset chain sunsetting timestamp
+const uint32_t nSunsettingTimestamp = 1768147200; // 11 Jan 2026 16:00 UTC
+
+// MCL height HF sample
+const int32_t nSyncChkPointHeight = nSunsettingHeight; // not used
+// Asset chain auto checkpoint timestamp
+const uint32_t nSyncChkPointTimestamp = nSunsettingTimestamp;
+
 // Era array of pubkeys. Add extra seasons to bottom as requried, after adding appropriate info above. 
 static const char *notaries_elected[NUM_KMD_SEASONS][NUM_KMD_NOTARIES][2] =
 {

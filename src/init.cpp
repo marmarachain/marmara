@@ -28,6 +28,7 @@
 #include "addrman.h"
 #include "amount.h"
 #include "checkpoints.h"
+#include "Gulden/auto_checkpoints.h"
 #include "compat/sanity.h"
 #include "consensus/upgrades.h"
 #include "consensus/validation.h"
@@ -609,6 +610,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
     strUsage += HelpMessageOpt("-ac_marmara", _("Use marmara features (-ac_marmara=1) default 0"));
     strUsage += HelpMessageOpt("-marmara-stake-provider", _("Run as marmara stake provider (-marmara-stake-provider=1) default 0"));
+    strUsage += HelpMessageOpt("-ac_autosettle", _("Run marmara loops auto settlement, default true (allows to disable auto settlement if needed)"));
     
     return strUsage;
 }

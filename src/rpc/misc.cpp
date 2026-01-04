@@ -31,6 +31,7 @@
 #include "notaries_staked.h"
 #include "cc/eval.h"
 #include "cc/CCinclude.h"
+#include "Gulden/auto_checkpoints.h"
 #ifdef ENABLE_WALLET
 #include "wallet/wallet.h"
 #include "wallet/walletdb.h"
@@ -1663,6 +1664,25 @@ UniValue decodeccopret(const UniValue& params, bool fHelp, const CPubKey& mypk)
     return result;
 }
 
+static UniValue getcheckpoint(const UniValue& params, bool fHelp, const CPubKey& mypk)
+{
+    if (fHelp) throw std::runtime_error("returns last sync checkpoint");
+    if (params.size() != 0)
+    {
+        throw std::runtime_error("getcheckpoint does not take arguments\n");
+    }
+
+    LOCK(Checkpoints::cs_hashSyncCheckpoint);
+            
+    UniValue chkptInfo(UniValue::VOBJ);
+    chkptInfo.push_back(Pair("checkpoint", Checkpoints::syncCheckpoint.hash.GetHex()));
+    CBlockIndex *psyncCheckpoint = Checkpoints::GetLastSyncCheckpoint();
+    if (psyncCheckpoint) {
+        chkptInfo.push_back(Pair("height", psyncCheckpoint->GetHeight()));
+    }
+    return chkptInfo;
+}
+
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafeMode
   //  --------------------- ------------------------  -----------------------  ----------
@@ -1671,6 +1691,7 @@ static const CRPCCommand commands[] =
     { "util",               "z_validateaddress",      &z_validateaddress,      true  }, /* uses wallet if enabled */
     { "util",               "createmultisig",         &createmultisig,         true  },
     { "util",               "verifymessage",          &verifymessage,          true  },
+    { "util",               "getcheckpoint",          &getcheckpoint,          true  },
 
     /* Not shown in help */
     { "hidden",             "setmocktime",            &setmocktime,            true  },
