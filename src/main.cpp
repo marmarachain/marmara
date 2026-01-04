@@ -152,26 +152,9 @@ namespace {
     {
         bool operator()(CBlockIndex *pa, const CBlockIndex *pb) const {
             // First sort by most total work, ...
-           
-            if (ASSETCHAINS_LWMAPOS) {
 
-                /*  Decker:
-
-                    seems we had CChainPower classes compare here from Verus, it's slow, bcz of hard
-                    arith_uint256 math in bool operator<(const CChainPower &p1, const CChainPower &p2),
-                    this slows down setBlockIndexCandidates.insert operations in LoadBlockIndexDB(),
-                    so, for faster block index db loading we will use check from Verus only for LWMAPOS
-                    enabled chains.
-                */
-
-                if (pa->chainPower > pb->chainPower) return false;
-                if (pa->chainPower < pb->chainPower) return true;
-            }
-            else
-            {
-                if (pa->chainPower.chainWork > pb->chainPower.chainWork) return false;
-                if (pa->chainPower.chainWork < pb->chainPower.chainWork) return true;
-            }
+            if (pa->chainPower.chainWork > pb->chainPower.chainWork) return false;
+            if (pa->chainPower.chainWork < pb->chainPower.chainWork) return true;
 
             // ... then by earliest time received, ...
             if (pa->nSequenceId < pb->nSequenceId) return false;
@@ -5414,7 +5397,7 @@ bool CheckBlock(int32_t *futureblockp,int32_t height,CBlockIndex *pindex,const C
                     //LogPrintf("Rejected by mempool, reason: .%s.\n", state.GetRejectReason().c_str());
                     // take advantage of other checks, but if we were only rejected because it is a valid staking
                     // transaction, sync with wallets and don't mark as a reject
-                    if (i == (block.vtx.size() - 1) && ASSETCHAINS_LWMAPOS && block.IsVerusPOSBlock() && state.GetRejectReason() == "staking")
+                    if (i == (block.vtx.size() - 1) && state.GetRejectReason() == "staking")
                     {
                         sTx = Tx;
                         ptx = &sTx;

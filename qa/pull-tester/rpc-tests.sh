@@ -14,7 +14,6 @@ testScripts=(
     'dpow.py'
     'dpowconfs.py'
     'ac_private.py'
-    'verushash.py'
     'paymentdisclosure.py'
     'prioritisetransaction.py'
     'wallet_treestate.py'
